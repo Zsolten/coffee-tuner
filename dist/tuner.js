@@ -294,3 +294,9 @@ timerReset.addEventListener("click", resetTimer);
 
 syncInputs();
 initializeLanguage(render);
+
+const settingsToggle = byId("settings-toggle");
+settingsToggle.addEventListener("click", () => {
+  const expanded = settingsToggle.getAttribute("aria-expanded") !== "true";
+  settingsToggle.setAttribute("aria-expanded", String(expanded));
+});

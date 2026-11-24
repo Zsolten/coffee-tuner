@@ -117,3 +117,68 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
   cursor: pointer;
 }
 .method-actions button:hover, .method-actions button:focus-visible { background: #e4ece1; }
+
+#settings-toggle { display: none; }
+
+@media (min-width: 756.01px) {
+  .adjustment-notes > summary { display: block; cursor: default; }
+}
+
+@media (max-width: 756px) {
+  .workspace { padding-top: 8px; }
+  .brew-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .brew-toolbar .brew-nav { order: 0; gap: 2px; padding: 3px; }
+  .brew-nav a { min-height: 44px; padding: 4px; gap: 4px; justify-content: center; }
+  .brew-nav strong { font-size: .82rem; }
+  .brew-nav small, .ritual-banner, .identity p { display: none; }
+  .brew-nav .nav-icon { font-size: 1rem; }
+  .nav-icon.filter img { width: 19px; }
+  .language-picker > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .language-picker select { min-width: 0; padding: 4px; font-size: .84rem; }
+  .workspace .page-header {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin-bottom: 6px;
+  }
+  .workspace .page-header h1 { font-size: 1.4rem; }
+  .page-header .jump-link, #settings-toggle { margin-inline-start: auto; }
+  #settings-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--accent);
+    font-weight: 650;
+  }
+  #settings-toggle::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border: solid currentColor;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+  }
+  #settings-toggle[aria-expanded="true"]::after { transform: rotate(225deg); }
+  .workspace:has(#settings-toggle[aria-expanded="false"]) #brew-settings,
+  #settings-toggle[aria-expanded="false"] + .reset { display: none; }
+  .filter-theme .recipe-overview, .filter-theme .pour-plan { padding-block: 14px; }
+  .filter-theme .metrics, .filter-theme .temperature-note { margin-top: 10px; }
+}
