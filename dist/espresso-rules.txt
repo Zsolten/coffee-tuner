@@ -1,0 +1,20 @@
+Coffee Tuner — espresso dial-in rules
+
+Read from the top. The first matching rule wins. Yield means the weight of espresso in the cup. Keep the dose fixed for these comparisons.
+
+1. Uneven flow, or both sour and bitter: repeat with more even puck prep. Break up clumps, distribute to the edges and tamp level. Uneven extraction is one possible cause. Keep grind and yield the same to test it.
+2. Balanced taste with even flow: repeat the recipe. A fast or slow time alone does not override a cup you like.
+3. Slow or stalled flow with a remaining taste selection: try a small step coarser at the same yield. This reduces resistance. Compare with the usual flow for this coffee and setup.
+4. Fast and sharply sour: try one step finer at the same yield. This adds resistance and may improve extraction.
+5. Steady and sharply sour: try a longer yield. More water through the same coffee can increase extraction and soften sourness, at the cost of concentration.
+6. Bitter, with steady or fast flow: try a shorter yield. Stopping earlier can reduce bitterness and gives a more concentrated shot.
+7. Dry or mouth-puckering, with steady or fast flow: repeat with even puck prep first. Dryness and bitterness are different sensations. Dryness alone cannot diagnose channeling.
+8. Flavor balanced, body too thin or heavy, with steady or fast flow: try a shorter yield for more concentration or a longer yield for less.
+
+Coffee Tuner uses a 10% yield step for comparison. From 36 g, that means 39.6 g longer or 32.4 g shorter. The percentage and the rule order are app design choices. The pre-infusion slider is separate from these decisions. Its roast examples come from Flair.
+
+Video check
+In James Hoffmann's light-roast example, his sour, muddy first shot ran slowly. He went coarser, overshot, and made smaller moves finer. Once close, he kept the grind and raised the yield from roughly 38 g to 42 g at an 18 g dose. Later he used about 17 g, ground finer and kept 42 g out. His example shows why sourness alone cannot determine grind direction.
+Hoffmann transcript: https://github.com/JWDobken/jameshoffman-espresso-transcripts/blob/main/transcripts/lFwJF-_SUr0.md
+Lance Hedrick's chapters cover dose, grind, ratio, then time/pressure/temperature. His complete transcript was not verified. The app's decision tree is an interpretation.
+Hedrick video: https://www.youtube.com/watch?v=j-Hu4hF5PTM

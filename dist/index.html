@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Dial in V60 brew water, bloom, pours, and target timing for your batch." data-i18n-attr="content" name="description"/>
+<meta content="#f4efe6" name="theme-color"/>
+<meta name="apple-mobile-web-app-title" content="Coffee Tuner"/>
+<link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48 64x64"/>
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon.png"/>
+<link rel="apple-touch-icon" href="./apple-touch-icon.png"/>
+<title data-i18n="">Coffee Tuner</title>
+<link href="./styles.css" rel="stylesheet"/>
+<script src="./tuner.js" type="module"></script>
+<link href="./refresh.css" rel="stylesheet"/></head>
+<body class="filter-theme">
+<main class="workspace">
+<div class="brew-toolbar">
+<nav aria-label="Brew tools" class="brew-nav" data-i18n-attr="aria-label">
+<a aria-current="page" class="filter-link" href="./"><span aria-hidden="true" class="nav-icon filter">▽</span><span><strong data-i18n="">Filter · V60</strong><small data-i18n="">Brew by water &amp; time</small></span></a>
+<a class="espresso-link" href="./espresso.html"><span aria-hidden="true" class="nav-icon espresso">☕</span><span><strong data-i18n="">Espresso</strong><small data-i18n="">Dial in by taste &amp; flow</small></span></a>
+</nav>
+<label class="language-picker">
+<span data-i18n="">Language</span>
+<select id="app-language">
+<option lang="en" value="en">English</option>
+<option lang="hu" value="hu">Magyar</option>
+</select>
+</label>
+</div>
+<div class="ritual-banner"><div><p class="eyebrow" data-i18n="">Filter coffee</p><p class="ritual-title" data-i18n="">Pour, pause, enjoy.</p></div><img alt="" height="240" src="./coffee-ritual.svg" width="600"/></div><header class="page-header">
+<div class="identity">
+<span aria-hidden="true" class="dripper"><span></span></span>
+<div>
+<h1 data-i18n="">Coffee Tuner</h1>
+<p data-i18n="">Dial in James Hoffmann’s one-cup V60 method.</p>
+</div>
+</div>
+<button class="reset" data-i18n="" id="reset" type="button">Reset recipe</button>
+</header>
+
+<div class="layout">
+<section aria-labelledby="settings-title" class="settings">
+<h2 data-i18n="" id="settings-title">Brew settings</h2>
+<div class="control">
+<label class="field-label" data-i18n="" for="dose">Coffee dose</label>
+<div class="stepper">
+<button aria-label="Decrease dose by 1 gram" data-i18n-attr="aria-label" id="less-dose" type="button">−</button>
+<div class="dose-entry">
+<input aria-describedby="dose-help" id="dose" inputmode="decimal" max="60" min="5" required="" step="0.1" type="number" value="15"/>
+<span aria-hidden="true">g</span>
+</div>
+<button aria-label="Increase dose by 1 gram" data-i18n-attr="aria-label" id="more-dose" type="button">+</button>
+</div>
+<p class="field-help" data-i18n="" id="dose-help">Total grams of grounds for the batch.</p>
+</div>
+<fieldset aria-describedby="servings-help" class="control">
+<legend class="field-label" data-i18n="">Servings</legend>
+<div class="segments servings">
+<label><input checked="" name="servings" type="radio" value="1"/><span>1</span></label>
+<label><input name="servings" type="radio" value="2"/><span>2</span></label>
+<label><input name="servings" type="radio" value="3"/><span>3</span></label>
+<label><input name="servings" type="radio" value="4"/><span>4</span></label>
+</div>
+<p class="field-help" data-i18n="" id="servings-help">15 g per serving by default.</p>
+</fieldset>
+<div class="control">
+<label class="field-label" data-i18n="" for="roast">Roast level</label>
+<select id="roast">
+<option data-i18n="" selected="" value="light">Light</option>
+<option data-i18n="" value="medium-light">Medium-light</option>
+<option data-i18n="" value="medium">Medium</option>
+<option data-i18n="" value="medium-dark">Medium-dark</option>
+<option data-i18n="" value="dark">Dark</option>
+</select>
+</div>
+<fieldset aria-describedby="style-help" class="control">
+<legend class="field-label" data-i18n="">Cup style</legend>
+<div class="segments styles">
+<label><input name="style" type="radio" value="bright"/><span data-i18n="">Bright</span></label>
+<label><input checked="" name="style" type="radio" value="balanced"/><span data-i18n="">Balanced</span></label>
+<label><input name="style" type="radio" value="full"/><span data-i18n="">Full-bodied</span></label>
+</div>
+<p class="field-help" data-i18n="" id="style-help">The original ratio, about 1:16.7.</p>
+</fieldset>
+<fieldset aria-describedby="batch-help" class="control" hidden="" id="batch-control">
+<legend class="field-label" data-i18n="">How to brew</legend>
+<div class="segments batch-modes">
+<label><input checked="" name="batch" type="radio" value="separate"/><span data-i18n="">Separate cups</span></label>
+<label><input name="batch" type="radio" value="combined"/><span data-i18n="">One batch</span></label>
+</div>
+<p class="field-help" id="batch-help"></p>
+</fieldset>
+<div class="control">
+<label class="field-label" data-i18n="" for="bloom-method">Bloom mixing</label>
+<select id="bloom-method">
+<option data-i18n="" value="swirl">Gentle swirl</option>
+<option data-i18n="" value="stir">Gentle stir</option>
+</select>
+<p class="field-help" data-i18n="" id="bloom-help">Use the original method’s gentle swirl.</p>
+</div>
+<div class="control">
+<p class="field-label" data-i18n="" id="dose-options-label">Dose shortcuts per serving</p>
+<div aria-describedby="dose-options-help" aria-labelledby="dose-options-label" class="dose-options" role="group">
+<button data-dose="12" type="button">12 g</button>
+<button aria-pressed="true" data-dose="15" type="button">15 g</button>
+<button data-dose="18" type="button">18 g</button>
+</div>
+<p class="field-help" data-i18n="" hidden="" id="dose-options-help">Shortcuts are limited to 60 g total.</p>
+</div>
+</section>
+<section aria-labelledby="recipe-title" class="recipe">
+<div class="recipe-overview">
+<div class="recipe-heading">
+<h2 data-i18n="" id="recipe-title">Your recipe</h2>
+<span data-i18n="" id="batch-detail">15 g coffee · 1 serving</span>
+</div>
+<dl class="metrics">
+<div><dt data-i18n="">Brew water</dt><dd id="water">250 <span>g</span></dd></div>
+<div><dt data-i18n="">Coffee : water</dt><dd id="ratio">1:16.7</dd></div>
+<div><dt data-i18n="">Water temp.</dt><dd id="temperature">100 <span>°C</span></dd></div>
+</dl>
+<p class="temperature-note" data-i18n="" id="temperature-note">Use water fresh off the boil. Start on the finer side of medium-fine.</p>
+</div>
+<div class="pour-plan">
+<div class="plan-heading">
+<h3 data-i18n="">Pour schedule</h3>
+<span data-i18n="">Scale target</span>
+</div>
+<p class="batch-note" hidden="" id="batch-note"></p>
+<div aria-label="Brew timer" class="timer" data-i18n-attr="aria-label">
+<span class="timer-time" id="timer-time" role="timer">0:00</span>
+<button data-i18n="" id="timer-toggle" type="button">Start timer</button>
+<button data-i18n="" disabled="" id="timer-reset" type="button">Reset timer</button>
+</div>
+<ol class="stages" id="schedule"></ol>
+<p class="plan-note" data-i18n="" id="plan-note">Start timing at the bloom. The right column shows the cumulative scale weight.</p>
+</div>
+</section>
+</div><details class="source-note"><summary data-i18n="">Recipe notes &amp; sources</summary><p class="field-help" data-i18n="">Video baseline: 15 g coffee, 250 g water, five equal pours, a 45 s bloom and an approximate 3:00 finish. App adaptations: 1:17.5 and 1:15.5 styles, the medium-light temperature preset, and timing changes outside the original recipe. Scaled finish times are estimates, not predictions.</p></details>
+<section aria-labelledby="guide-title" class="method-guide" id="method-guide">
+<div class="guide-heading">
+<h2 data-i18n="" id="guide-title">Brewing notes and adaptations</h2>
+<a data-i18n="" href="https://www.youtube.com/watch?v=1oB1oDrDkHM" rel="noopener noreferrer" target="_blank">Watch the original ↗</a>
+</div>
+<details>
+<summary data-i18n="">Set up the brewer</summary>
+<ul>
+<li data-i18n="">Use a V60 01 for a single cup. Hoffmann favors plastic because it is easy to warm. Rinse the paper and warm the plastic cone with hot tap water, then discard the rinse water. Give glass or ceramic a thorough preheat with boiling water, especially for light roasts.</li>
+<li data-i18n="">Use soft, filtered brew water and a scale. A gooseneck gives you more control over a thin stream, and a regular kettle also works if you can pour steadily.</li>
+<li data-i18n="">Start medium-fine. Lean finer for lighter coffee and coarser for darker coffee. Add the grounds, level the bed, make a shallow well in the center, and tare the scale.</li>
+</ul>
+</details>
+<details>
+<summary data-i18n="">Bloom, pour, and drain</summary>
+<ul>
+<li data-i18n="">Start the timer with the first drops. Pour into the center and spiral outward so the whole bed gets wet. Lift the brewer slightly and give it a small swirl at about 0:10, then leave it to bloom.</li>
+<li data-i18n="">Hold the spout close and move in slow circles over the coffee. Use roughly 5 g/s as a starting pace. A steady low stream distributes water and agitation across the bed. A prolonged center pour can dig a crater. A higher center pour that breaks the stream before it hits the bed can spread the agitation, but low circles are easier to repeat.</li>
+<li data-i18n="">Stick to the pauses so the slurry can drop between pulses. After the last pour, gently swirl to settle the grounds, then let the bed drain. A little variation around the finish time is normal.</li>
+</ul>
+</details>
+<details>
+<summary data-i18n="">Scale the recipe and dial in to taste</summary>
+<ul>
+<li data-i18n="">At the original ratio, 12 g uses 200 g of water in 40 g charges, 15 g uses 250 g in 50 g charges, and 18 g uses 300 g in 60 g charges. Keep each charge at about one-fifth of the total.</li>
+<li data-i18n="">Use fresh off-boil water for light roasts, roughly 90–95 °C for medium, around 90 °C for medium-dark, and roughly 80–85 °C for dark. Retaining heat through the bloom can help a light roast taste sweeter.</li>
+<li data-i18n="">If the brew tastes thin or sour, try a slightly finer grind first. If it tastes harsh or dries your mouth, try a bit coarser. Let taste guide your adjustments. Water quality, the coffee itself, and grind all matter alongside technique.</li>
+<li data-i18n="">Separate cups keep the method close to the original. A combined batch uses the same water fractions with longer pours. Use a V60 that fits the dose, and expect its finish time to vary.</li>
+</ul>
+</details>
+<p class="guide-source"><a data-i18n="" href="https://www.youtube.com/watch?v=1oB1oDrDkHM&amp;t=43s" rel="noopener noreferrer" target="_blank">Technique walkthrough</a> · <a data-i18n="" href="https://www.youtube.com/watch?v=1oB1oDrDkHM&amp;t=334s" rel="noopener noreferrer" target="_blank">Why it works</a> · <a data-i18n="" href="https://www.youtube.com/watch?v=v5WQ1sZzW4o" rel="noopener noreferrer" target="_blank">Hoffmann’s follow-up Q&amp;A</a></p>
+</section>
+<noscript><p class="batch-note" data-i18n="">Enable JavaScript to calculate your recipe and show the pour schedule.</p></noscript>
+<p class="sr-only" id="recipe-status" role="status"></p>
+</main>
+</body>
+</html>
