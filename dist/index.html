@@ -7,9 +7,9 @@
 <meta content="Dial in V60 brew water, bloom, pours, and target timing for your batch." data-i18n-attr="content" name="description"/>
 <meta content="#f4efe6" name="theme-color"/>
 <meta name="apple-mobile-web-app-title" content="Coffee Tuner"/>
-<link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48 64x64"/>
-<link rel="icon" type="image/png" sizes="32x32" href="./favicon.png"/>
-<link rel="apple-touch-icon" href="./apple-touch-icon.png"/>
+<link rel="icon" href="./favicon.ico?v=grinder" sizes="16x16 32x32 48x48 64x64"/>
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon.png?v=grinder"/>
+<link rel="apple-touch-icon" href="./apple-touch-icon.png?v=grinder"/>
 <title data-i18n="">Coffee Tuner</title>
 <link href="./styles.css" rel="stylesheet"/>
 <script src="./tuner.js" type="module"></script>
@@ -18,7 +18,7 @@
 <main class="workspace">
 <div class="brew-toolbar">
 <nav aria-label="Brew tools" class="brew-nav" data-i18n-attr="aria-label">
-<a aria-current="page" class="filter-link" href="./"><span aria-hidden="true" class="nav-icon filter">▽</span><span><strong data-i18n="">Filter · V60</strong><small data-i18n="">Brew by water &amp; time</small></span></a>
+<a aria-current="page" class="filter-link" href="./"><span aria-hidden="true" class="nav-icon filter"><img src="./v60.png" alt="" width="28" height="28"/></span><span><strong data-i18n="">Filter · V60</strong><small data-i18n="">Brew by water &amp; time</small></span></a>
 <a class="espresso-link" href="./espresso.html"><span aria-hidden="true" class="nav-icon espresso">☕</span><span><strong data-i18n="">Espresso</strong><small data-i18n="">Dial in by taste &amp; flow</small></span></a>
 </nav>
 <label class="language-picker">
@@ -34,7 +34,7 @@
 <span aria-hidden="true" class="dripper"><span></span></span>
 <div>
 <h1 data-i18n="">Coffee Tuner</h1>
-<p data-i18n="">Dial in James Hoffmann’s one-cup V60 method.</p>
+<p data-i18n="">Choose a V60 recipe and follow its pour schedule.</p>
 </div>
 </div>
 <button class="reset" data-i18n="" id="reset" type="button">Reset recipe</button>
@@ -93,12 +93,19 @@
 <p class="field-help" id="batch-help"></p>
 </fieldset>
 <div class="control">
-<label class="field-label" data-i18n="" for="bloom-method">Bloom mixing</label>
-<select id="bloom-method">
-<option data-i18n="" value="swirl">Gentle swirl</option>
-<option data-i18n="" value="stir">Gentle stir</option>
-</select>
-<p class="field-help" data-i18n="" id="bloom-help">Use the original method’s gentle swirl.</p>
+<label class="field-label" data-i18n="" for="method">V60 recipe</label>
+<select id="method"></select>
+<div class="dose-options"><button type="button" id="create-method" data-i18n="">New recipe</button><button type="button" id="edit-method" data-i18n="">Edit recipe</button></div>
+<dialog id="method-dialog"><form id="method-form">
+<h2 data-i18n="">Recipe editor</h2>
+<label><span data-i18n="">Recipe name</span><input id="method-name" required maxlength="60"/></label>
+<label><span data-i18n="">Water per gram of coffee</span><input id="method-ratio" type="number" min="5" max="30" step="0.01" required/></label>
+<label><span data-i18n="">Water temperature (°C)</span><input id="method-temp" type="number" min="50" max="100" required/></label>
+<p data-i18n="">For each pour, enter its start time in seconds and its share of the total water. Shares must add up to 100%.</p>
+<div id="method-pours"></div><button id="add-pour" type="button" data-i18n="">Add pour</button>
+<label><span data-i18n="">Target finish (seconds)</span><input id="method-finish" type="number" min="1" max="3600" required/></label>
+<p id="method-error" role="alert"></p><button type="button" id="cancel-method" data-i18n="">Cancel</button> <button type="submit" data-i18n="">Save recipe</button>
+</form></dialog>
 </div>
 <div class="control">
 <p class="field-label" data-i18n="" id="dose-options-label">Dose shortcuts per serving</p>

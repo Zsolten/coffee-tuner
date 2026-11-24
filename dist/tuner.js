@@ -7,7 +7,8 @@ import { formatNumber, initializeLanguage, t } from "./language.js";
 const byId = (id) => document.getElementById(id);
 const doseInput = byId("dose");
 const roastSelect = byId("roast");
-const bloomSelect = byId("bloom-method");
+import { setupMethods, customBrew } from "./methods.js";
+const methods = setupMethods(update);
 const lessButton = byId("less-dose");
 const moreButton = byId("more-dose");
 const timerToggle = byId("timer-toggle");
@@ -118,7 +119,13 @@ function render() {
     : styles[settings.style].description);
   byId("batch-control").hidden = settings.servings === 1;
 
-  const recipe = calculateHoffmann(settings);
+  const method = methods.selected();
+  const recipe = method ? customBrew(settings, method) : calculateHoffmann({...settings, bloomMethod:"swirl"});
+  byId("roast").closest(".control").hidden = !!method;
+  byId("style-help").closest("fieldset").hidden = !!method;
+  byId("method-guide").hidden = !!method;
+  document.querySelector(".source-note").hidden = !!method;
+  methods.refresh();
   setText("recipe-title", invalidDose ? "Recipe for last valid dose" : "Your recipe");
   setText("batch-detail", settings.servings === 1
     ? "{dose} g coffee · {count} serving"
@@ -132,10 +139,6 @@ function render() {
   setText("batch-help", settings.batch === "separate"
     ? "Repeat the schedule with fresh grounds for each cup."
     : "Use a larger cone and pour all the water into one brew.");
-  setText("bloom-help", settings.bloomMethod === "stir"
-    ? "Try stirring gently if swirling makes your brew stall."
-    : "Use the original method’s gentle swirl.");
-
   byId("dose-options-help").hidden = 18 * settings.servings <= doseLimits.max;
   for (const button of document.querySelectorAll("[data-dose]")) {
     const total = Number(button.dataset.dose) * settings.servings;
@@ -184,7 +187,7 @@ function update() {
 function syncInputs() {
   doseInput.value = settings.dose;
   roastSelect.value = settings.roast;
-  bloomSelect.value = settings.bloomMethod ?? "swirl";
+
   document.querySelectorAll('input[type="radio"]').forEach((input) => {
     input.checked = input.value === String(settings[input.name]);
   });
@@ -227,11 +230,6 @@ for (const button of document.querySelectorAll("[data-dose]")) {
 
 roastSelect.addEventListener("change", () => {
   settings.roast = roastSelect.value;
-  update();
-});
-
-bloomSelect.addEventListener("change", () => {
-  settings.bloomMethod = bloomSelect.value;
   update();
 });
 
