@@ -95,3 +95,25 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
 .pour-inputs{display:grid;grid-template-columns:1fr 1fr auto;gap:.5rem;align-items:end}
 #method-error{color:#922c19}
 [hidden]{display:none!important}
+
+.method-heading, .method-actions {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.method-heading { flex-wrap: wrap; justify-content: space-between; margin-bottom: .25rem; }
+.method-heading .field-label { margin: 0; }
+.method-actions { margin-inline-start: auto; gap: .125rem; }
+.method-actions button {
+  min-height: 44px;
+  padding: 0 .625rem;
+  background: transparent;
+  color: var(--accent);
+  border: 0;
+  border-radius: .5rem;
+  font: inherit;
+  font-size: .875rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.method-actions button:hover, .method-actions button:focus-visible { background: #e4ece1; }

@@ -6,6 +6,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="Dial in V60 brew water, bloom, pours, and target timing for your batch." data-i18n-attr="content" name="description"/>
 <meta content="#f4efe6" name="theme-color"/>
+<link rel="canonical" href="https://v60-recipe-tuner.vercel.app/"/>
 <meta name="apple-mobile-web-app-title" content="Coffee Tuner"/>
 <link rel="icon" href="./favicon.ico?v=grinder" sizes="16x16 32x32 48x48 64x64"/>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png?v=grinder"/>
@@ -93,9 +94,14 @@
 <p class="field-help" id="batch-help"></p>
 </fieldset>
 <div class="control">
+<div class="method-heading">
 <label class="field-label" data-i18n="" for="method">V60 recipe</label>
+<div class="method-actions">
+<button type="button" id="create-method" aria-haspopup="dialog" title="New recipe" data-i18n-attr="title"><span aria-hidden="true">+</span> <span data-i18n="">New</span></button>
+<button type="button" id="edit-method" aria-haspopup="dialog" title="Edit recipe" data-i18n-attr="title"><span data-i18n="">Edit</span></button>
+</div>
+</div>
 <select id="method"></select>
-<div class="dose-options"><button type="button" id="create-method" data-i18n="">New recipe</button><button type="button" id="edit-method" data-i18n="">Edit recipe</button></div>
 <dialog id="method-dialog"><form id="method-form">
 <h2 data-i18n="">Recipe editor</h2>
 <label><span data-i18n="">Recipe name</span><input id="method-name" required maxlength="60"/></label>

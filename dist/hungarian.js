@@ -1,5 +1,7 @@
 export const hungarian = Object.freeze({
   "V60 recipe": "V60-recept",
+  "New": "Új",
+  "Edit": "Szerkesztés",
   "New recipe": "Új recept",
   "Edit recipe": "Recept szerkesztése",
   "Recipe editor": "Receptszerkesztő",
