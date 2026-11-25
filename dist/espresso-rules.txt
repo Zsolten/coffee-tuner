@@ -1,30 +1,36 @@
 Coffee Tuner — espresso dial-in rules
 
-Read from the top. The first matching rule wins. Yield means the weight of espresso in the cup. Keep the dose fixed for these comparisons.
+Read from the top. The first matching rule wins. Yield means the weight of espresso in the cup. Keep the dose fixed while comparing adjustments.
 
-1. Uneven flow, or both sour and bitter: repeat with more even puck prep. Break up clumps, distribute to the edges and tamp level. Uneven extraction is one possible cause. Keep grind and yield the same to test it.
-2. Balanced taste with even flow: repeat the recipe. A fast or slow time alone does not override a cup you like.
-3. Slow or stalled flow with a remaining taste selection: try a small step coarser at the same yield. This reduces resistance. Compare with the usual flow for this coffee and setup.
-4. Fast and sharply sour: try one step finer at the same yield. This adds resistance and may improve extraction.
-5. Steady and sharply sour: try a longer yield. More water through the same coffee can increase extraction and soften sourness, at the cost of concentration.
-6. Bitter, with steady or fast flow: try a shorter yield. Stopping earlier can reduce bitterness and gives a more concentrated shot.
-7. Dry or mouth-puckering, with steady or fast flow: repeat with even puck prep first. Dryness and bitterness are different sensations. Dryness alone cannot diagnose channeling.
-8. Flavor balanced, body too thin or heavy, with steady or fast flow: try a shorter yield for more concentration or a longer yield for less.
+Roast profiles (ratio bounds, auto-flow time windows, temperature bands)
+- Dark: starter ~1:1.7, bounds 1:1.4–1:2.1, auto-steady 18–35 s, 88–91 °C
+- Medium: starter ~1:2.0, bounds 1:1.6–1:2.5, auto-steady 20–40 s (+4 s when ratio >= 1:2.4), 91–94 °C
+- Light: starter ~1:2.5 (closer to 1:2.0 for heavy naturals), bounds 1:1.9–1:3.2, auto-steady 20–48 s, 93–96 °C
 
-Coffee Tuner uses a 10% yield step for comparison. From 36 g, that means 39.6 g longer or 32.4 g shorter. The percentage and the rule order are app design choices. The roast-based pre-infusion examples are separate from these decisions and come from Flair.
+Priority rules
+1. Uneven flow, or both sour and bitter: repeat with more even puck prep. Break up clumps, distribute to the edges, and tamp level. Keep dose, grind, yield, temperature, and pre-infusion fixed to isolate channeling.
+2. Balanced taste (with fast, steady, or slow even flow): keep the recipe. Sensory balance overrides textbook clock targets, including fast 6-bar turbo shots and long-soak light roasts.
+3. Slow or stalled flow with any remaining taste issue: try one small step coarser at the same target yield. Grinding past the puck's resistance peak clogs fine pathways, lowering bulk extraction (sour) while over-extracting narrow channels (bitter/dry).
+4. Fast flow with sour or thin taste: try one small step finer at the same yield to add puck resistance, contact time, and body.
+5. Fast flow with dry/astringent finish: repeat with even puck prep first. High-speed channels strip localized polyphenols; check distribution before touching grind.
+6. Fast flow with bitter/harsh taste: shorten yield only if the ratio is already stretched past the roast starter (+0.15) or the coffee is a dark roast; otherwise check puck prep and sour–bitter confusion before shrinking a fast shot into a gusher.
+7. Steady flow and sour, below the roast's max ratio: pull a slightly longer yield (~11% step, rounded to 0.5 g, minimum 2 g) to add solvent mass and lift extraction.
+8. Steady flow and sour, at or above the roast's max ratio: keep yield fixed and move one micro-step finer (or raise temperature later) instead of diluting the cup further.
+9. Steady flow and bitter/harsh, above the roast's min ratio: stop the shot a little earlier (~11% step, rounded to 0.5 g, minimum 2 g) to cut late-extracting bitter compounds and boost concentration.
+10. Steady flow and bitter/harsh, at or below the roast's min ratio: keep yield fixed and move one micro-step coarser (or lower temperature later) instead of shrinking the drink further.
+11. Steady flow and dry/astringent: shorten yield if the ratio is stretched (> starter + 0.3); otherwise repeat with even puck prep, and step one notch coarser on the next shot if dryness persists.
+12. Flavor balanced, body too thin or too heavy: shorten yield for fuller body (or step finer at the min ratio floor); lengthen yield for a lighter, more open cup (or step coarser at the max ratio ceiling).
 
-Shot time
-Measure from pump or lever start to target yield, including pre-infusion. With "Use shot time / unsure" selected, the app treats times under 20 s as fast and times over 40 s as slow. These are app cues for a conventional shot, and manual flow selection takes precedence. A fast, sharply sour shot suggests trying a little finer. A slow shot with an unwanted taste can benefit from going a little coarser. Both grind trials keep the same dose and target yield. A fast, bitter shot keeps the taste-based advice. Time alone does not identify either sourness or bitterness. Keep a balanced shot even if its time is unusual, provided the flow is even.
-Hoffmann on shot time: https://www.youtube.com/watch?v=hQaV3w_XNiw
+Yield steps and overshoot bisection
+Coffee Tuner uses an ~11% yield trial rounded to the nearest 0.5 g (minimum 2 g move) to match the +/- 0.5 g UI steppers—for example, 36 g -> 40 g longer or 32 g shorter, and 45 g -> 50 g longer or 40 g shorter. When a user applies a yield change and the next shot flips from sour straight to bitter (or vice versa), the app suggests splitting the difference halfway between the two yields.
 
-Temperature
-The app uses starting bands of 88–92 °C for dark roast, 91–94 °C for medium roast, and 93–96 °C for light roast. The bands overlap and are starter settings for a conventional espresso. Coffee and machines vary.
-With steady flow, change yield first. If a later shot still tastes sharply sour, try a 1 °C increase. If it still tastes bitter, try a 1 °C decrease. The app suggests a change only when the entered temperature and selected roast allow that direction within the relevant bound. Keep dose, grind, yield and pre-infusion fixed while comparing temperatures. Use the machine’s usual setting if you cannot adjust it.
-Hoffmann on espresso temperature: https://www.youtube.com/watch?v=QAzE-_ocf1U
-La Marzocco brew guide: https://lamarzocco.com/de/de/wp-content/uploads/2024/02/brewbook-print-1.pdf
+Shot time and temperature
+Measure time from pump or lever start to target yield, including pre-infusion. Manual flow selection overrides automatic time classification. Brew temperature is optional; when entered within a roast's adjustable range during steady flow, the app offers a +/- 1 °C follow-up suggestion if yield changes alone leave a shot sour or bitter.
 
-Video check
-In James Hoffmann's light-roast example, his sour, muddy first shot ran slowly. He went coarser, overshot, and made smaller moves finer. Once close, he kept the grind and raised the yield from roughly 38 g to 42 g at an 18 g dose. Later he used about 17 g, ground finer and kept 42 g out. His example shows why sourness alone cannot determine grind direction.
-Hoffmann transcript: https://github.com/JWDobken/jameshoffman-espresso-transcripts/blob/main/transcripts/lFwJF-_SUr0.md
-Lance Hedrick's chapters cover dose, grind, ratio, then time/pressure/temperature. His complete transcript was not verified. The app's decision tree is an interpretation.
-Hedrick video: https://www.youtube.com/watch?v=j-Hu4hF5PTM
+Sources
+- Cameron, Foster & Hendon, Systematically Improving Espresso (Matter, 2020): https://doi.org/10.1016/j.matt.2019.12.019
+- James Hoffmann dial-in walkthrough: https://www.youtube.com/watch?v=lFwJF-_SUr0
+- James Hoffmann on shot time & temperature: https://www.youtube.com/watch?v=hQaV3w_XNiw · https://www.youtube.com/watch?v=QAzE-_ocf1U
+- Lance Hedrick on espresso variables: https://www.youtube.com/watch?v=j-Hu4hF5PTM
+- Barista Hustle Espresso Compass: https://www.baristahustle.com/wp-content/uploads/2021/09/Espresso-Compass.pdf
+- Flair pre-infusion guide: https://flairespresso.com/blogs/news/espresso-pre-infusion-techniques

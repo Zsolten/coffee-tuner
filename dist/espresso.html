@@ -59,7 +59,11 @@
 
 <div class="layout espresso-layout">
 <section aria-labelledby="diagnose-title" class="settings decision-inputs">
-<h2 data-i18n="" id="diagnose-title">Diagnose your shot</h2><fieldset class="control weights">
+<div class="diagnose-heading">
+<h2 data-i18n="" id="diagnose-title">Diagnose your shot</h2>
+<button aria-label="Reset recipe" class="reset" data-i18n="" data-i18n-attr="aria-label" id="reset-espresso" type="button">Reset</button>
+</div>
+<fieldset class="control weights">
 <legend class="field-label" data-i18n="">Your last shot</legend>
 <div class="weight-inputs">
 <div><label data-i18n="" for="shot-dose">Dose (g)</label>
@@ -88,19 +92,20 @@
 <label class="field-label" for="shot-temperature" data-i18n="">Brew temperature (°C)</label>
 <div class="weight-stepper">
 <button aria-label="Decrease brew temperature" data-i18n-attr="aria-label" data-step="-1" data-step-target="shot-temperature" type="button">−</button>
-<input id="shot-temperature" type="number" inputmode="decimal" min="80" max="100" step="0.1" value="93" aria-describedby="shot-temperature-help"/>
+<input id="shot-temperature" type="number" inputmode="decimal" min="80" max="100" step="0.1" placeholder="—" aria-describedby="shot-temperature-tip shot-temperature-help"/>
 <button aria-label="Increase brew temperature" data-i18n-attr="aria-label" data-step="1" data-step-target="shot-temperature" type="button">+</button>
 </div>
 </div>
 </div>
+<p class="field-help" data-i18n="" id="shot-temperature-tip">Enter your machine’s setting if you know it.</p>
 <p class="field-help error" id="shot-temperature-help" hidden></p>
 </fieldset>
 <fieldset aria-describedby="taste-tip" class="control">
 <legend class="field-label" data-i18n="">What did it taste like?</legend>
-<p class="field-help taste-tip" data-i18n="" id="taste-tip">Stir and taste once it cools a little. Dry means it leaves your mouth feeling rough or puckered.</p>
-<select aria-label="What did it taste like?" class="mobile-select" data-i18n-attr="aria-label" id="mobile-taste" aria-describedby="taste-tip"><option data-i18n="" selected="" value="sour">Sour</option><option data-i18n="" value="bitter">Bitter</option><option data-i18n="" value="dry">Dry / astringent</option><option data-i18n="" value="mixed">Sour and bitter</option><option data-i18n="" value="thin">Balanced, thin</option><option data-i18n="" value="heavy">Balanced, heavy</option><option data-i18n="" value="balanced">Balanced</option></select><div class="segments taste-options">
+<p class="field-help taste-tip" data-i18n="" id="taste-tip">Stir and taste once it cools. Sharp right away = sour; lingers late = bitter; rough tongue = dry.</p>
+<select aria-label="What did it taste like?" class="mobile-select" data-i18n-attr="aria-label" id="mobile-taste" aria-describedby="taste-tip"><option data-i18n="" selected="" value="sour">Sour</option><option data-i18n="" value="bitter">Bitter / harsh</option><option data-i18n="" value="dry">Dry / astringent</option><option data-i18n="" value="mixed">Sour and bitter</option><option data-i18n="" value="thin">Balanced, thin</option><option data-i18n="" value="heavy">Balanced, heavy</option><option data-i18n="" value="balanced">Balanced</option></select><div class="segments taste-options">
 <label><input checked="" name="taste" type="radio" value="sour"/><span data-i18n="">Sour</span></label>
-<label><input name="taste" type="radio" value="bitter"/><span data-i18n="">Bitter</span></label>
+<label><input name="taste" type="radio" value="bitter"/><span data-i18n="">Bitter / harsh</span></label>
 <label><input name="taste" type="radio" value="dry"/><span data-i18n="">Dry / astringent</span></label>
 <label><input name="taste" type="radio" value="mixed"/><span data-i18n="">Sour and bitter</span></label>
 <label><input name="taste" type="radio" value="thin"/><span data-i18n="">Balanced, thin</span></label>
@@ -112,7 +117,7 @@
 <p class="field-help" data-i18n="">Take two small sips. Notice what hits first, then what lingers. Compare shots at a similar temperature.</p>
 <dl class="tasting-notes">
   <div><dt data-i18n="">Sour</dt><dd data-i18n="">Sharp and mouthwatering, like lemon. If the shot also ran fast, it may need more extraction.</dd></div>
-  <div><dt data-i18n="">Bitter</dt><dd data-i18n="">A lingering taste like unsweetened cocoa or burnt toast. The roast and the amount you extract can both contribute.</dd></div>
+  <div><dt data-i18n="">Bitter / harsh</dt><dd data-i18n="">Dark cocoa or burnt toast on darker roasts; a hollow, woody, or harsh finish on lighter roasts.</dd></div>
   <div><dt data-i18n="">Dry / astringent</dt><dd data-i18n="">A rough, puckering finish, like strong black tea. Check whether the shot flowed evenly.</dd></div>
   <div><dt data-i18n="">Sour and bitter</dt><dd data-i18n="">Sharp at first, with a bitter finish. Both together can be a sign of uneven extraction.</dd></div>
   <div><dt data-i18n="">Balanced, thin</dt><dd data-i18n="">The flavors work together, but the cup feels watery. Choose this if you want more body.</dd></div>
@@ -123,14 +128,14 @@
 </fieldset>
 <fieldset class="control">
 <legend class="field-label" data-i18n="">How did it flow?</legend>
-<select aria-label="How did it flow?" class="mobile-select" data-i18n-attr="aria-label" id="mobile-flow"><option data-i18n="" value="fast">Fast / gushing</option><option data-i18n="" value="steady">Steady</option><option data-i18n="" value="slow">Slow / choking</option><option data-i18n="" value="uneven">Uneven / spraying</option><option data-i18n="" selected="" value="auto">Use shot time / unsure</option></select><div class="segments flow-options">
+<select aria-label="How did it flow?" class="mobile-select" data-i18n-attr="aria-label" id="mobile-flow"><option data-i18n="" value="fast">Fast / gushing</option><option data-i18n="" value="steady">Normal speed, even</option><option data-i18n="" value="slow">Slow / choking</option><option data-i18n="" value="uneven">Uneven / spraying</option><option data-i18n="" selected="" value="auto">Use shot time / unsure</option></select><div class="segments flow-options">
 <label><input name="flow" type="radio" value="fast"/><span data-i18n="">Fast / gushing</span></label>
-<label><input name="flow" type="radio" value="steady"/><span data-i18n="">Steady</span></label>
+<label><input name="flow" type="radio" value="steady"/><span data-i18n="">Normal speed, even</span></label>
 <label><input name="flow" type="radio" value="slow"/><span data-i18n="">Slow / choking</span></label>
 <label><input name="flow" type="radio" value="uneven"/><span data-i18n="">Uneven / spraying</span></label>
 <label><input checked="" name="flow" type="radio" value="auto"/><span data-i18n="">Use shot time / unsure</span></label>
 </div>
-<p class="field-help" data-i18n="">Long pre-infusion? Choose the flow you saw.</p>
+<p class="field-help" data-i18n="" id="flow-help">Long pre-infusion or turbo shot? Choose the flow speed you saw.</p>
 </fieldset>
 
 </section>
@@ -141,30 +146,32 @@
 <span data-i18n="" id="last-ratio">18 g in · 36 g out · 1:2</span>
 </div>
 <p class="adjustment-title" data-i18n="" id="adjustment-title">Pull a slightly longer shot</p>
-<p class="adjustment-detail" data-i18n="" id="adjustment-detail">Keep 18 g in and try about 39.6 g out.</p>
+<p class="adjustment-detail" data-i18n="" id="adjustment-detail">Keep 18 g in and try about 40 g out.</p>
+<button class="apply-yield-button" data-i18n="" id="apply-yield" type="button">Use 40 g for next shot</button>
+<p class="oscillation-note" hidden id="oscillation-note"></p>
 <p class="next-shot-tip" data-i18n="" id="next-shot-tip">Try this change on its own, then taste again.</p>
 </div>
 <section class="pour-plan adjustment-notes" aria-labelledby="explanation-title"><h2 id="explanation-title" data-i18n="">Why &amp; what to watch</h2>
 <h3 data-i18n="">Why this is the next step</h3>
-<p data-i18n="" id="adjustment-why">With a steady pour, a little more yield can lift extraction and soften sharp sourness. Expect a slightly lighter body.</p>
+<p data-i18n="" id="adjustment-why">With steady flow, a little more yield can increase extraction and soften sharp sourness. Expect a slightly lighter body.</p>
 <p id="timing-cue" hidden></p>
 <h3 data-i18n="">Keep steady</h3>
 <p data-i18n="" id="adjustment-keep">Dose, grind, temperature, and pre-infusion. Taste before changing anything else.</p>
 <h3 data-i18n="">What to look for</h3>
-<p data-i18n="" id="adjustment-watch">Look for sweetness and a softer finish. If the extra yield only thins the shot, return to your previous yield and try a small grind adjustment.</p>
-<h3 data-i18n="">Temperature for this roast</h3>
-<p id="temperature-start" data-i18n="">A starting range for medium roasts is 91–94 °C.</p>
-<p id="temperature-follow-up"></p>
+<p data-i18n="" id="adjustment-watch">Look for more sweetness and a softer finish. If you only lose body, return to your prior yield and try a small grind adjustment.</p>
+<h3 data-i18n="">Ratio &amp; temperature for this roast</h3>
+<p id="temperature-start" data-i18n="">Medium roasts usually shine around 1:2–1:2.2 at 91–94 °C.</p>
+<p id="temperature-follow-up" hidden></p>
 </section>
 </section>
-</div><details class="source-note"><summary data-i18n="">Recipe notes &amp; sources</summary><p class="field-help" data-i18n="">How to use this guide: the decision map is an app interpretation, not a verbatim video recipe. Yield targets use a trial change of 10%; this is not a rule from either video. Taste the result before making another change.</p>
-<p class="field-help"><a data-i18n="" href="https://www.youtube.com/watch?v=QAzE-_ocf1U" rel="noopener noreferrer" target="_blank">James Hoffmann on espresso temperature</a> · <a data-i18n="" href="https://www.youtube.com/watch?v=hQaV3w_XNiw" rel="noopener noreferrer" target="_blank">James Hoffmann on shot time</a> · <a data-i18n="" href="https://lamarzocco.com/de/de/wp-content/uploads/2024/02/brewbook-print-1.pdf" rel="noopener noreferrer" target="_blank">La Marzocco’s brew guide</a> · <a data-i18n="" href="https://www.baristahustle.com/wp-content/uploads/2021/09/Espresso-Compass.pdf" rel="noopener noreferrer" target="_blank">Barista Hustle’s Espresso Compass</a></p><p class="field-help" data-i18n="">Under 20 s and over 40 s are rough cues for a conventional shot. If you use a long pre-infusion or a different brew ratio, choose the flow you observed.</p></details>
+</div><details class="source-note"><summary data-i18n="">Recipe notes &amp; sources</summary><p class="field-help" data-i18n="">How to use this guide: the decision map combines peer-reviewed espresso physics (Cameron, Foster &amp; Hendon, Matter 2020) with practical frameworks from James Hoffmann, Lance Hedrick, and Matt Perger. Yield trials step in ~11% increments rounded to 0.5 g, bounded by roast solubility limits. Taste each change on its own before adjusting anything else.</p>
+<p class="field-help"><a data-i18n="" href="https://doi.org/10.1016/j.matt.2019.12.019" rel="noopener noreferrer" target="_blank">Cameron &amp; Hendon (Matter, 2020)</a> · <a data-i18n="" href="https://www.youtube.com/watch?v=QAzE-_ocf1U" rel="noopener noreferrer" target="_blank">James Hoffmann on espresso temperature</a> · <a data-i18n="" href="https://www.youtube.com/watch?v=hQaV3w_XNiw" rel="noopener noreferrer" target="_blank">James Hoffmann on shot time</a> · <a data-i18n="" href="https://lamarzocco.com/de/de/wp-content/uploads/2024/02/brewbook-print-1.pdf" rel="noopener noreferrer" target="_blank">La Marzocco’s brew guide</a> · <a data-i18n="" href="https://www.baristahustle.com/wp-content/uploads/2021/09/Espresso-Compass.pdf" rel="noopener noreferrer" target="_blank">Barista Hustle’s Espresso Compass</a></p><p class="field-help" data-i18n="">Auto-flow timing adapts to roast and ratio (18–35 s dark, 20–40 s medium, 20–48 s light). If you use an extended soak or a fast 6-bar turbo profile, select the flow speed you observed.</p></details>
 <section aria-labelledby="baseline-title" class="method-guide">
 <div class="guide-heading"><h2 data-i18n="" id="baseline-title">Start with a repeatable shot</h2></div>
 <p class="field-help" data-i18n="">Check headspace with the dry, tamped puck: insert and remove the portafilter without brewing. If the shower screen or screw leaves a mark, reduce the dose. Basket ratings are a starting point; coffee density changes the space occupied.</p>
 <ol class="baseline-steps">
 <li><strong data-i18n="">Fit the dose to the basket.</strong> <span data-i18n="">Start near the basket’s rated dose and leave room above the tamped puck. Weigh the grounds, distribute evenly, and tamp level. Keep the dose fixed for the first comparisons.</span></li>
-<li><strong data-i18n="">Weigh the yield.</strong> <span data-i18n="">A useful first try is 1:2 by mass, such as 18 g dry coffee to 36 g espresso. Put a scale under the cup and stop by weight. A longer ratio usually gives higher extraction and lower concentration.</span></li>
+<li><strong data-i18n="">Match starting yield to roast.</strong> <span data-i18n="">Try around 1:1.7 for dark roasts (30.5 g from 18 g), 1:2 for medium (36 g), and 1:2.5 for dense light roasts (45 g, or 1:2 for heavy naturals and milk drinks). Stop by scale weight.</span></li>
 <li><strong data-i18n="">Use grind to get a steady flow.</strong> <span data-i18n="">A smaller grind step is usually enough. Finer generally slows the shot, coarser speeds it up. If finer makes the flow uneven or the finish drying, back off and check puck prep.</span></li>
 <li><strong data-i18n="">Taste, then log.</strong> <span data-i18n="">Stir and taste after it cools a little. Around 30 s is a starting reference for a conventional shot. Record total time from pump or lever start and the pre-infusion time separately. Keep a balanced shot even when its time differs.</span></li>
 </ol>
