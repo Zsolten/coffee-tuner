@@ -57,6 +57,11 @@
 .decision-inputs .weight-inputs .weight-stepper {
   grid-template-columns: clamp(26px, 8cqw, 44px) minmax(0, 1fr) clamp(26px, 8cqw, 44px);
 }
+@container (max-width: 330px) {
+  .decision-inputs .weight-inputs { gap: 8px; }
+  .decision-inputs .weight-inputs label { font-size: .8rem; }
+  .decision-inputs .weight-inputs input { font-size: 1.1rem; }
+}
 @container (max-width: 310px) {
   .decision-inputs .weight-inputs .weight-stepper { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .weight-inputs .weight-stepper input { grid-column: 1 / -1; grid-row: 1; }
