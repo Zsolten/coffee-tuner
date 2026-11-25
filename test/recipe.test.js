@@ -10,7 +10,7 @@ test("Hoffmann's 15 g recipe follows the original weight and time marks", () => 
   const recipe = calculateHoffmann(defaultSettings);
   assert.equal(recipe.water, 250);
   assert.equal(recipe.ratio, "16.7");
-  assert.equal(recipe.temperature, "100 °C");
+  assert.equal(recipe.temperature, "90–95 °C");
   assert.equal(recipe.finish.start, 180);
   assert.deepEqual(scaleTargets(recipe), [50, 100, 150, 200, 250]);
   assert.deepEqual(recipe.schedule.map(({ start, end }) => [start, end]), [
