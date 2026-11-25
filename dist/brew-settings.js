@@ -1,8 +1,13 @@
 export function setupBrewSettings() {
   const settingsToggle = document.getElementById("settings-toggle");
+  const key = "coffee-tuner-panel-" + (document.body.classList.contains("aeropress-theme") ? "aeropress" : "v60");
+  try {
+    settingsToggle.setAttribute("aria-expanded", String(localStorage.getItem(key) === "true"));
+  } catch { /* Storage is optional. */ }
   settingsToggle.addEventListener("click", () => {
     const expanded = settingsToggle.getAttribute("aria-expanded") !== "true";
     settingsToggle.setAttribute("aria-expanded", String(expanded));
+    try { localStorage.setItem(key, String(expanded)); } catch { /* Storage is optional. */ }
   });
 
   const mobileSettings = window.matchMedia("(max-width: 756px)");

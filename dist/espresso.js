@@ -88,6 +88,43 @@ document.querySelectorAll("[data-step-target]").forEach(button => {
     renderAdjustment();
   });
 });
+const espressoRoast = byId("espresso-roast");
+const key = "coffee-tuner-espresso-v1";
+const fields = [dose, yieldInCup, infusion, espressoRoast];
+try {
+  const saved = JSON.parse(localStorage.getItem(key)) || {};
+  for (const field of fields) {
+    if (saved[field.id] === undefined) continue;
+    const initial = field.value;
+    field.value = saved[field.id];
+    if (!field.value || !field.validity.valid) field.value = initial;
+  }
+  for (const input of document.querySelectorAll('input[type="radio"]')) {
+    if (input.value === saved[input.name]) input.checked = true;
+  }
+} catch { /* Storage is optional. */ }
+
+function remember() {
+  try {
+    const state = JSON.parse(localStorage.getItem(key)) || {};
+    for (const field of fields) if (field.validity.valid && field.value) state[field.id] = field.value;
+    state.taste = selected("taste");
+    state.flow = selected("flow");
+    localStorage.setItem(key, JSON.stringify(state));
+  } catch { /* Storage is optional. */ }
+}
+
+function showRoast() {
+  const rows = document.querySelectorAll(".roast-guide > div");
+  rows.forEach((row, i) => { row.hidden = ["dark", "medium", "light"][i] !== espressoRoast.value; });
+}
+espressoRoast.addEventListener("change", showRoast);
+document.addEventListener("input", remember);
+document.addEventListener("change", remember);
+document.addEventListener("click", event => {
+  if (event.target.closest("[data-step-target]")) remember();
+});
+showRoast();
 initializeLanguage(() => {
   renderAdjustment();
   renderInfusion();

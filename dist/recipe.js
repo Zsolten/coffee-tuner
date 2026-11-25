@@ -25,7 +25,7 @@ export function scaleDose(dosePerServing, servings) {
 export const gramsPerServing = 15;
 
 export const defaultSettings = Object.freeze({
-  dose: gramsPerServing, servings: 1, roast: "light", style: "balanced",
+  dose: gramsPerServing, servings: 1, roast: "medium", style: "balanced",
   batch: "separate", bloomMethod: "swirl",
 });
 

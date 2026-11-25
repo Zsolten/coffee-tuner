@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
+<script src="./remember-tab.js"></script>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="Diagnose an espresso by taste and flow, choose your next adjustment, and explore pre-infusion." data-i18n-attr="content" name="description"/>
 <meta content="#f4efe6" name="theme-color"/>
@@ -21,7 +22,7 @@
 <div class="brew-card">
 <div class="brew-toolbar">
 <nav aria-label="Brew tools" class="brew-nav" data-i18n-attr="aria-label">
-<a class="filter-link" href="./"><span aria-hidden="true" class="nav-icon filter"><img src="./v60.png" alt="" width="28" height="28"/></span><span><strong data-i18n="">Filter · V60</strong><small data-i18n="">Brew by water &amp; time</small></span></a>
+<a class="filter-link" href="./?method=v60"><span aria-hidden="true" class="nav-icon filter"><img src="./v60.png" alt="" width="28" height="28"/></span><span><strong data-i18n="">V60</strong><small data-i18n="">Brew by water &amp; time</small></span></a>
 <a aria-current="page" class="espresso-link" href="./espresso.html"><span aria-hidden="true" class="nav-icon espresso">☕</span><span><strong data-i18n="">Espresso</strong><small data-i18n="">Dial in by taste &amp; flow</small></span></a>
 <a class="aeropress-link" href="./aeropress.html"><span aria-hidden="true" class="nav-icon aeropress"><img src="./aeropress.png" alt="" width="28" height="28"/></span><span><strong>AeroPress</strong><small data-i18n="">Steep, swirl &amp; press</small></span></a>
 </nav>
@@ -132,6 +133,8 @@
 </div>
 </div>
 <p class="field-help" data-i18n="">Additional source: Flair’s roast-level examples below assume a controllable low-pressure phase. They are not timings from the two espresso videos or universal settings. Flair gives different ranges elsewhere in the same article; use these as comparison trials, not fixed requirements.</p>
+<label class="field-label" for="espresso-roast" data-i18n="">Roast level</label>
+<select id="espresso-roast"><option value="dark" data-i18n="">Dark</option><option selected value="medium" data-i18n="">Medium</option><option value="light" data-i18n="">Light</option></select>
 <dl class="roast-guide">
 <div><dt data-i18n="">Dark roast</dt><dd><strong data-i18n="">About 3–5 s at 2–3 bar</strong> <span data-i18n="">as a short-soak trial.</span></dd></div>
 <div><dt data-i18n="">Medium roast</dt><dd><strong data-i18n="">About 5–8 s at 2–3 bar</strong> <span data-i18n="">as a starting comparison.</span></dd></div>
