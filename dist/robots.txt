@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://v60-recipe-tuner.vercel.app/sitemap.xml
+Sitemap: https://everything-coffee.vercel.app/sitemap.xml
