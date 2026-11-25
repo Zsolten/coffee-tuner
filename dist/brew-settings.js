@@ -2,9 +2,9 @@ export function setupBrewSettings() {
   const mobile = window.matchMedia("(max-width: 756px)");
   const toolbar = document.querySelector(".brew-recipe-toolbar");
   const picker = document.querySelector("#method, #aero-method");
-  const pickerControl = picker.closest(".control");
+  const pickerControl = picker.closest(".recipe-picker");
   const pickerPosition = document.createComment("Desktop recipe selector");
-  picker.before(pickerPosition);
+  pickerControl.before(pickerPosition);
 
   const sheet = document.getElementById("mobile-brew-settings");
   const openButton = document.getElementById("settings-toggle");
@@ -24,17 +24,15 @@ export function setupBrewSettings() {
   function positionSettings() {
     toolbar.hidden = !mobile.matches;
     if (mobile.matches) {
-      toolbar.prepend(picker);
+      toolbar.prepend(pickerControl);
       closeButton.before(title);
       sheet.append(settings);
       settings.append(reset);
-      if (picker.id === "aero-method") pickerControl.hidden = true;
       return;
     }
 
     if (sheet.open) sheet.close();
-    pickerPosition.after(picker);
-    pickerControl.hidden = false;
+    pickerPosition.after(pickerControl);
     settings.prepend(title);
     recipe.before(settings);
     pageHeader.append(reset);

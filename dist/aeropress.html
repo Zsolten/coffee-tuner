@@ -15,7 +15,8 @@
 <title data-i18n="">AeroPress · Coffee Tuner</title>
 <link href="./styles.css" rel="stylesheet"/>
 <script src="./aeropress.js" type="module"></script>
-<link href="./refresh.css" rel="stylesheet"/></head>
+<link href="./refresh.css" rel="stylesheet"/>
+<link href="./recipe-editor.css" rel="stylesheet"/></head>
 <body class="aeropress-theme">
 <main class="workspace">
 <div class="brew-card">
@@ -46,7 +47,6 @@
 <button class="reset" data-i18n="" id="reset" type="button">Reset recipe</button>
 </header>
 
-<p class="brew-recipe-caption" data-i18n="">Pick and edit your recipe</p>
 <div class="brew-recipe-toolbar" hidden>
 <button type="button" id="settings-toggle" aria-haspopup="dialog" aria-controls="mobile-brew-settings" aria-label="Brew settings" data-i18n-attr="aria-label">
 <span class="brew-sliders" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -59,8 +59,17 @@
 <div class="layout">
 <section id="brew-settings" aria-labelledby="settings-title" class="settings">
 <h2 data-i18n="" id="settings-title">Brew settings</h2>
-<div class="control"><label class="field-label" for="aero-method" data-i18n="">AeroPress recipe</label>
-<select id="aero-method" aria-label="AeroPress recipe" data-i18n-attr="aria-label"><option value="hoffmann">James Hoffmann</option><option value="happy">13g that makes you happy</option><option value="sweet">For the sweetest cup</option></select></div>
+<div class="control recipe-picker">
+<div class="method-heading">
+<label class="field-label" data-i18n="" for="aero-method">Recipe</label>
+<div class="method-actions">
+<button type="button" id="create-method" data-i18n="">Add</button>
+<button type="button" id="edit-method" data-i18n="">Edit</button>
+<button type="button" id="delete-method" data-i18n="" aria-haspopup="dialog" disabled>Delete</button>
+</div>
+</div>
+<select id="aero-method"><option value="hoffmann">James Hoffmann</option><option value="happy">13g that makes you happy</option><option value="sweet">For the sweetest cup</option></select>
+</div>
 <fieldset aria-describedby="servings-help" class="control">
 <legend class="field-label" data-i18n="">Servings</legend>
 <div class="segments servings">

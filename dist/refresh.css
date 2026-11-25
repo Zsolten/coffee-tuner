@@ -126,43 +126,8 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
  .espresso-page .ritual-title { font-size:1.2rem; }
  .weight-inputs label { min-height:40px; }
 }
-#method-dialog{width:min(90vw,30rem);max-height:85vh;border:1px solid #ad9580;border-radius:16px;padding:1.4rem;background:#fffaf4;color:#31271f}
-#method-dialog::backdrop{background:#231b1688}
-#method-form label{display:grid;gap:.3rem;margin:.7rem 0;font-weight:600}
-#method-form input{min-width:0;width:100%;box-sizing:border-box;padding:.5rem;border:1px solid #ab9888;border-radius:5px;font:inherit}
-#method-form button{min-height:36px;padding:.4rem .7rem;cursor:pointer}
-.pour-inputs{display:grid;grid-template-columns:1fr 1fr auto;gap:.5rem;align-items:end}
-#method-error{color:#922c19}
 [hidden]{display:none!important}
 
-.method-heading, .method-actions {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-.method-heading { flex-wrap: wrap; justify-content: space-between; margin-bottom: .25rem; }
-.method-heading .field-label { margin: 0; }
-.method-actions { margin-inline-start: auto; gap: .125rem; }
-.method-actions button {
-  min-height: 44px;
-  padding: 0 .625rem;
-  background: transparent;
-  color: var(--accent);
-  border: 0;
-  border-radius: .5rem;
-  font: inherit;
-  font-size: .875rem;
-  font-weight: 650;
-  cursor: pointer;
-}
-.method-actions button:hover, .method-actions button:focus-visible { background: #e4ece1; }
-
-.brew-recipe-caption {
-  margin: 0 0 6px;
-  color: var(--muted);
-  font-size: .85rem;
-  font-weight: 650;
-}
 .aeropress-identity-icon { flex: none; object-fit: contain; }
 .brew-recipe-toolbar { display: none; }
 

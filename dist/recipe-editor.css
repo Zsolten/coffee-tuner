@@ -1,0 +1,120 @@
+.method-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 8px;
+  margin-bottom: 6px;
+}
+.method-heading .field-label { margin: 0; }
+.method-actions { display: flex; gap: 4px; margin-inline-start: auto; }
+.method-actions button, .editor-button {
+  min-height: 42px;
+  padding: 6px 12px;
+  border: 1px solid #d9cbbb;
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--accent);
+  font-size: .875rem;
+  font-weight: 700;
+}
+.method-actions button:not(:disabled):hover, .editor-button:not(:disabled):hover {
+  border-color: var(--accent);
+  background: #f2eadd;
+}
+#delete-method:not(:disabled), .editor-remove:not(:disabled) { color: #8b392c; }
+
+.workspace:has(> #recipe-editor:not([hidden])) > :not(#recipe-editor) { display: none; }
+#recipe-editor { width: min(100%, 720px); margin: 0 auto; }
+.editor-header, .editor-step-heading, .editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.editor-header { margin: 10px 0 18px; }
+.editor-header h1 { margin-top: 6px; font-size: clamp(2rem, 6vw, 3.5rem); }
+.editor-header h1:focus { outline: none; }
+.editor-header button { flex-shrink: 0; }
+.editor-card {
+  display: grid;
+  gap: 16px;
+  padding: clamp(14px, 4vw, 24px);
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+}
+.editor-card h2 { font-size: 1.7rem; line-height: 1; }
+.editor-card > .field-help { margin: 0; }
+.editor-amounts, .editor-step-fields { display: grid; gap: 12px; }
+.editor-amounts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.editor-step-fields { grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); }
+.editor-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
+  color: #4e382f;
+  font-size: .875rem;
+  font-weight: 650;
+}
+.editor-field input, .editor-field textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid #d9cbbb;
+  border-radius: 8px;
+  background: var(--paper);
+  color: #30221c;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 450;
+}
+.editor-field input[type="number"] { appearance: textfield; }
+.editor-field input::-webkit-inner-spin-button { appearance: none; }
+.editor-field textarea { resize: vertical; }
+.editor-steps { display: grid; gap: 10px; padding: 0; list-style: none; }
+.editor-step {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #f7f1e9;
+}
+.editor-step-heading strong { color: var(--accent); }
+#add-step, .editor-finish { justify-self: start; }
+.editor-footer { justify-content: flex-end; }
+.editor-footer p, #delete-recipe-error { color: #8b392c; font-size: .875rem; }
+.editor-primary, .editor-danger { flex: none; background: var(--accent); color: white; border-color: transparent; }
+.editor-danger { background: #8b392c; }
+.editor-primary:not(:disabled):hover, .editor-danger:not(:disabled):hover { background: #30221c; color: white; }
+
+.recipe-delete-dialog {
+  width: min(calc(100% - 32px), 360px);
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  color: #30221c;
+}
+.recipe-delete-dialog::backdrop { background: #231b1666; }
+.recipe-delete-dialog p { margin: 10px 0; overflow-wrap: anywhere; }
+.recipe-delete-dialog .editor-step-heading { justify-content: flex-end; }
+
+@media (max-width: 756px) {
+  .brew-recipe-toolbar .recipe-picker { display: contents; }
+  .brew-recipe-toolbar .method-heading { grid-column: 1 / -1; margin: 0; }
+  .brew-recipe-toolbar .method-actions button { min-height: 36px; padding-inline: 10px; }
+  #recipe-editor { padding-top: 4px; }
+}
+@media (max-width: 480px) {
+  .editor-amounts, .editor-step-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .editor-amounts > :last-child, .editor-step-fields > :first-child { grid-column: 1 / -1; }
+  .editor-footer { flex-wrap: wrap; }
+  .editor-footer p { flex-basis: 100%; }
+}

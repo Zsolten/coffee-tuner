@@ -9,8 +9,19 @@ import { formatNumber, initializeLanguage, t } from "./language.js";
 const byId = (id) => document.getElementById(id);
 const doseInput = byId("dose");
 const roastSelect = byId("roast");
-import { setupMethods, customBrew } from "./methods.js";
-const methods = setupMethods(update);
+import { customBrew, editV60Recipe, setupMethods, v60Presets } from "./methods.js";
+const methods = setupMethods({
+  menu: byId("method"),
+  key: "coffee-tuner-methods-v1",
+  presets: v60Presets,
+  requireFinish: true,
+  editPreset: editV60Recipe,
+  onChange() {
+    invalidDose = false;
+    syncInputs();
+    update();
+  },
+});
 const lessButton = byId("less-dose");
 const moreButton = byId("more-dose");
 const storageKey = "v60-recipe-tuner-v3";
@@ -70,8 +81,13 @@ function render() {
     : styles[settings.style].description);
   byId("batch-control").hidden = settings.servings === 1;
 
-  const method = methods.selected();
-  const recipe = method ? customBrew(settings, method) : calculateHoffmann({...settings, bloomMethod:"swirl"});
+  const selected = methods.selected();
+  const method = selected.id === "hoffmann" ? null : selected;
+  const fixedDose = Boolean(method && !method.pours);
+  const recipe = method ? customBrew(settings, method) : calculateHoffmann({ ...settings, bloomMethod: "swirl" });
+  const totalDose = recipe.totalDose ?? settings.dose;
+  doseInput.closest(".control").hidden = fixedDose;
+  byId("dose-options-label").closest(".control").hidden = fixedDose;
   byId("roast").closest(".control").hidden = !!method;
   byId("style-help").closest("fieldset").hidden = !!method;
   byId("method-guide").hidden = !!method;
@@ -80,7 +96,7 @@ function render() {
   setText("recipe-title", invalidDose ? "Recipe for last valid dose" : "Your recipe");
   setText("batch-detail", settings.servings === 1
     ? "{dose} g coffee · {count} serving"
-    : "{dose} g coffee · {count} servings", { dose: formatNumber(settings.dose), count: settings.servings });
+    : "{dose} g coffee · {count} servings", { dose: formatNumber(totalDose), count: settings.servings });
   setWeight("water", recipe.water);
   setText("ratio", "1:" + formatNumber(Number(recipe.ratio)));
   batchNote.hidden = true;
@@ -105,7 +121,7 @@ function render() {
       dose, water: formatNumber(recipe.waterPerBrew), count: recipe.brews,
     });
     batchNote.hidden = false;
-  } else if (settings.dose > 18) {
+  } else if (totalDose > 18) {
     setText("batch-note", "Scaled single batch. Use a larger V60 and expect a different drawdown. " +
       "For a dose above 30 g, consider brewing smaller batches.");
     batchNote.hidden = false;

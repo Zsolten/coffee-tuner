@@ -1,5 +1,6 @@
 import { setupBrewSettings } from "./brew-settings.js";
 import { setupBrewTimer } from "./brew-timer.js";
+import { recipeSchedule, setupMethods } from "./methods.js";
 import { formatNumber, initializeLanguage, t } from "./language.js";
 
 const roasts = {
@@ -89,33 +90,46 @@ const recipes = {
 };
 recipes.hoffmann = { dose: 11, water: 200, author: "James Hoffmann", slug: "james-hoffmann-aeropress-recipe", setup: "Set the AeroPress upright on a sturdy mug with a paper filter and add the ground coffee. Start the timer after pouring.", stages };
 
+const presets = [
+  { ...recipes.hoffmann, id: "hoffmann", name: "James Hoffmann" },
+  { ...recipes.happy, id: "happy", name: "13g that makes you happy" },
+  { ...recipes.sweet, id: "sweet", name: "For the sweetest cup" },
+];
+
 const storageKey = "coffee-tuner-aeropress-v1";
 const byId = (id) => document.getElementById(id);
 const roastSelect = byId("roast");
-const method = byId("aero-method");
+
 const servings = Array.from(document.querySelectorAll('input[name="servings"]'));
 const { renderSchedule, resetTimer } = setupBrewTimer();
 
 function render() {
   const count = Number(servings.find((input) => input.checked).value);
-  const recipe = recipes[method.value];
+  const recipe = methods.selected();
   roastSelect.closest(".control").hidden = Boolean(recipe.temp);
   byId("water").firstChild.nodeValue = formatNumber(recipe.water * count) + " ";
-  byId("plan-note").textContent = t(recipe.setup);
+  byId("plan-note").hidden = !recipe.setup;
+  byId("plan-note").textContent = t(recipe.setup || "");
   const source = byId("recipe-source");
-  source.href = "https://aeroprecipe.com/recipes/" + recipe.slug;
-  source.textContent = recipe.author + " · AeroPrecipe";
+  source.closest("details").hidden = !recipe.slug;
+  if (recipe.slug) {
+    source.href = "https://aeroprecipe.com/recipes/" + recipe.slug;
+    source.textContent = recipe.author + " · AeroPrecipe";
+  }
   const roast = roasts[roastSelect.value];
   byId("temperature").firstChild.nodeValue = (recipe.temp ?? roast.temperature) + " ";
-  byId("temperature-note").textContent = recipe.temp ? recipe.author : t(roast.note);
+  const temperatureNote = byId("temperature-note");
+  temperatureNote.hidden = Boolean(recipe.temp && !recipe.author);
+  temperatureNote.textContent = recipe.temp ? (recipe.author || "") : t(roast.note);
   byId("ratio").textContent = "1:" + formatNumber(recipe.water / recipe.dose);
   byId("batch-detail").textContent = t(count === 1 ? "{dose} g coffee · {count} serving" : "{dose} g coffee · {count} servings", {
     dose: formatNumber(recipe.dose * count), count,
   });
   const batchNote = byId("batch-note");
   batchNote.hidden = count === 1;
-  batchNote.textContent = t("Use {dose} g coffee and {water} g water per cup. Run the schedule {count} times.", { dose: recipe.dose, water: recipe.water, count });
-  renderSchedule(recipe.stages);
+  batchNote.textContent = t("Use {dose} g coffee and {water} g water per cup. Run the schedule {count} times.", { dose: formatNumber(recipe.dose), water: formatNumber(recipe.water), count });
+  methods.refresh();
+  renderSchedule(recipe.stages ?? recipeSchedule(recipe));
 }
 
 function update() {
@@ -123,7 +137,7 @@ function update() {
   render();
   try {
     localStorage.setItem(storageKey, JSON.stringify({
-      recipe: method.value, roast: roastSelect.value,
+      recipe: methods.selected().id, roast: roastSelect.value,
       servings: servings.find((input) => input.checked).value,
     }));
   } catch {
@@ -131,9 +145,9 @@ function update() {
   }
 }
 
+let saved;
 try {
-  const saved = JSON.parse(localStorage.getItem(storageKey));
-  if (saved && Object.hasOwn(recipes, saved.recipe)) method.value = saved.recipe;
+  saved = JSON.parse(localStorage.getItem(storageKey));
   if (saved && Object.hasOwn(roasts, saved.roast)) roastSelect.value = saved.roast;
   const savedServing = servings.find((input) => input.value === saved?.servings);
   if (savedServing) savedServing.checked = true;
@@ -141,14 +155,30 @@ try {
   // Use the defaults in the markup if saved settings are unavailable.
 }
 
-method.addEventListener("change", update);
+const methods = setupMethods({
+  menu: byId("aero-method"),
+  key: "coffee-tuner-aeropress-methods-v1",
+  presets,
+  fallbackActive: saved?.recipe,
+  onChange: update,
+  editPreset(recipe) {
+    if (recipe.steps) return recipe;
+    const temp = Number(recipe.temp) || { light: 100, medium: 93, dark: 88 }[roastSelect.value];
+    let poured = 0;
+    const steps = recipe.stages.map(stage => {
+      const water = stage.total == null ? 0 : stage.total - poured;
+      poured += water;
+      return { start: stage.start, water, label: t(stage.label), note: t(stage.note) };
+    });
+    return { ...recipe, temp, steps };
+  },
+});
 roastSelect.addEventListener("change", update);
 for (const input of servings) input.addEventListener("change", update);
 byId("reset").addEventListener("click", () => {
-  method.value = "hoffmann";
   roastSelect.value = "medium";
   servings[0].checked = true;
-  update();
+  methods.select("hoffmann");
 });
 
 setupBrewSettings();
