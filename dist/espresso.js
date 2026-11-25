@@ -49,8 +49,6 @@ function renderAdjustment() {
   setText("adjustment-why", recommendation.why);
   setText("adjustment-keep", recommendation.keep);
   setText("adjustment-watch", recommendation.watch);
-  byId("mobile-advice-title").textContent = byId("adjustment-title").textContent;
-  byId("mobile-advice-detail").textContent = byId("adjustment-detail").textContent;
   for (const name of ["taste", "flow"]) byId("mobile-" + name).value = selected(name);
   document.querySelectorAll("[data-step-target]").forEach(button => {
     const field = byId(button.dataset.stepTarget);
