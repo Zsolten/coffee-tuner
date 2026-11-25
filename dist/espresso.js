@@ -106,8 +106,7 @@ document.querySelectorAll("[data-step-target]").forEach(button => {
   button.addEventListener("click", () => {
     const field = byId(button.dataset.stepTarget);
     const initial = Number.isFinite(field.valueAsNumber) ? field.valueAsNumber : Number(field.defaultValue || 30);
-    const increment = field.id === "shot-dose" ? 0.1 : 1;
-    field.value = Math.min(Number(field.max), Math.max(Number(field.min), Math.round((initial + Number(button.dataset.step) * increment) * 10) / 10));
+    field.value = Math.min(Number(field.max), Math.max(Number(field.min), Math.round((initial + Number(button.dataset.step)) * 10) / 10));
     renderAdjustment();
   });
 });
