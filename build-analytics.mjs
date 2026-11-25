@@ -1,10 +1,16 @@
 import { readFile, writeFile } from "node:fs/promises";
 
 const config = JSON.parse(process.env.VERCEL_OBSERVABILITY_CLIENT_CONFIG || "{}");
-const scriptSrc = config.analytics?.scriptSrc ?? "/_vercel/insights/script.js";
-if (!/^\/(?:[\w.-]+\/)*[\w.-]+\.js$/.test(scriptSrc)) {
-  throw new Error("Vercel Web Analytics must use a same-origin script path.");
+const projectScript = config.analytics?.scriptSrc;
+const site = new URL("https://everything-coffee.vercel.app");
+const scriptUrl = new URL(projectScript || "/_vercel/insights/script.js", site);
+if (scriptUrl.protocol !== "https:") {
+  throw new Error("Vercel Web Analytics requires an HTTPS script URL.");
 }
+const scriptSrc = (scriptUrl.origin === site.origin
+  ? scriptUrl.pathname + scriptUrl.search
+  : scriptUrl.href
+).replaceAll("&", "&amp;").replaceAll('"', "&quot;");
 
 const analytics = `<!-- Vercel Web Analytics -->
 <script>
