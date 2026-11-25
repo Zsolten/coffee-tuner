@@ -1,3 +1,5 @@
+import { formatStageTime, setupBrewTimer } from "./brew-timer.js";
+import { setupBrewSettings } from "./brew-settings.js";
 import {
   batchModes, bloomMethods, calculateHoffmann, defaultSettings, doseLimits,
   gramsPerServing, isValidDose, isValidSettings, scaleDose, styles,
@@ -11,18 +13,11 @@ import { setupMethods, customBrew } from "./methods.js";
 const methods = setupMethods(update);
 const lessButton = byId("less-dose");
 const moreButton = byId("more-dose");
-const timerToggle = byId("timer-toggle");
-const timerReset = byId("timer-reset");
 const storageKey = "v60-recipe-tuner-v3";
 let settings = restoreSettings();
 let invalidDose = false;
 let announcement;
-let schedule = [];
-let rows = [];
-let timerStartedAt = null;
-let elapsedBeforeRun = 0;
-let timerInterval;
-let activeRow = -1;
+const { renderSchedule, resetTimer } = setupBrewTimer();
 
 function restoreSettings() {
   try {
@@ -51,56 +46,12 @@ function rememberSettings() {
   }
 }
 
-function formatTime(seconds) {
-  return Math.floor(seconds / 60) + ":" + String(seconds % 60).padStart(2, "0");
-}
-
-function formatStageTime(stage) {
-  if (stage.end !== undefined) return formatTime(stage.start) + "–" + formatTime(stage.end);
-  return (stage.kind === "finish" ? "≈" : "") + formatTime(stage.start);
-}
-
 function setText(id, text, values) {
   byId(id).textContent = t(text, values);
 }
 
 function setWeight(id, number) {
   byId(id).firstChild.nodeValue = formatNumber(number) + " ";
-}
-
-function renderSchedule(stages) {
-  schedule = stages;
-  activeRow = -1;
-  rows = stages.map((stage) => {
-    const row = document.createElement("li");
-    row.className = stage.kind;
-    const time = document.createElement("span");
-    time.className = "stage-time";
-    time.textContent = formatStageTime(stage);
-    const info = document.createElement("div");
-    info.className = "stage-info";
-    const label = document.createElement("strong");
-    label.textContent = t(stage.label, stage.labelValues);
-    info.append(label);
-    if (stage.note) {
-      const note = document.createElement("small");
-      note.textContent = t(stage.note, stage.noteValues);
-      info.append(note);
-    }
-    row.append(time, info);
-    if (stage.total !== undefined) {
-      const weight = document.createElement("span");
-      weight.className = "stage-weight";
-      weight.textContent = formatNumber(stage.total) + " ";
-      const units = document.createElement("small");
-      units.textContent = "g";
-      weight.append(units);
-      row.append(weight);
-    }
-    return row;
-  });
-  byId("schedule").replaceChildren(...rows);
-  renderTimer();
 }
 
 function render() {
@@ -247,73 +198,7 @@ byId("reset").addEventListener("click", () => {
   update();
 });
 
-function getElapsedMilliseconds() {
-  return elapsedBeforeRun + (timerStartedAt === null ? 0 : performance.now() - timerStartedAt);
-}
-
-function renderTimer() {
-  const elapsed = Math.floor(getElapsedMilliseconds() / 1000);
-  const hasStarted = elapsedBeforeRun > 0 || timerStartedAt !== null;
-  setText("timer-time", formatTime(elapsed));
-  setText("timer-toggle", timerStartedAt !== null ? "Pause timer" : hasStarted ? "Resume timer" : "Start timer");
-  timerReset.disabled = !hasStarted;
-
-  const nextRow = hasStarted ? schedule.findLastIndex((stage) => stage.start <= elapsed) : -1;
-  if (nextRow === activeRow) return;
-  if (activeRow >= 0) {
-    rows[activeRow].classList.remove("active");
-    rows[activeRow].removeAttribute("aria-current");
-  }
-  activeRow = nextRow;
-  if (activeRow >= 0) {
-    rows[activeRow].classList.add("active");
-    rows[activeRow].setAttribute("aria-current", "step");
-  }
-}
-
-function resetTimer() {
-  clearInterval(timerInterval);
-  timerStartedAt = null;
-  elapsedBeforeRun = 0;
-  renderTimer();
-}
-
-timerToggle.addEventListener("click", () => {
-  if (timerStartedAt === null) {
-    timerStartedAt = performance.now();
-    timerInterval = setInterval(renderTimer, 200);
-  } else {
-    elapsedBeforeRun = getElapsedMilliseconds();
-    timerStartedAt = null;
-    clearInterval(timerInterval);
-  }
-  renderTimer();
-});
-
-timerReset.addEventListener("click", resetTimer);
-
 syncInputs();
 initializeLanguage(render);
 
-const settingsToggle = byId("settings-toggle");
-settingsToggle.addEventListener("click", () => {
-  const expanded = settingsToggle.getAttribute("aria-expanded") !== "true";
-  settingsToggle.setAttribute("aria-expanded", String(expanded));
-});
-
-const mobileSettings = window.matchMedia("(max-width: 756px)");
-const settingsPanel = byId("brew-settings");
-const recipePanel = document.querySelector(".recipe");
-const resetButton = byId("reset");
-
-function positionSettings() {
-  if (mobileSettings.matches) {
-    recipePanel.querySelector(".recipe-overview").after(settingsPanel);
-    settingsPanel.append(resetButton);
-  } else {
-    recipePanel.before(settingsPanel);
-    document.querySelector(".page-header").append(resetButton);
-  }
-}
-mobileSettings.addEventListener("change", positionSettings);
-positionSettings();
+setupBrewSettings();

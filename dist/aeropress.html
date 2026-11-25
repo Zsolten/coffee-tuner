@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Brew James Hoffmann’s AeroPress recipe with a step-by-step timer." data-i18n-attr="content" name="description"/>
+<meta content="#f4efe6" name="theme-color"/>
+<link rel="canonical" href="https://v60-recipe-tuner.vercel.app/aeropress.html"/>
+<meta name="apple-mobile-web-app-title" content="Coffee Tuner"/>
+<link rel="icon" href="./favicon.ico?v=grinder" sizes="16x16 32x32 48x48 64x64"/>
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon.png?v=grinder"/>
+<link rel="apple-touch-icon" href="./apple-touch-icon.png?v=grinder"/>
+<title data-i18n="">AeroPress · Coffee Tuner</title>
+<link href="./styles.css" rel="stylesheet"/>
+<script src="./aeropress.js" type="module"></script>
+<link href="./refresh.css" rel="stylesheet"/></head>
+<body class="aeropress-theme">
+<main class="workspace">
+<div class="brew-card">
+<div class="brew-toolbar">
+<nav aria-label="Brew tools" class="brew-nav" data-i18n-attr="aria-label">
+<a class="filter-link" href="./"><span aria-hidden="true" class="nav-icon filter"><img src="./v60.png" alt="" width="28" height="28"/></span><span><strong data-i18n="">Filter · V60</strong><small data-i18n="">Brew by water &amp; time</small></span></a>
+<a class="espresso-link" href="./espresso.html"><span aria-hidden="true" class="nav-icon espresso">☕</span><span><strong data-i18n="">Espresso</strong><small data-i18n="">Dial in by taste &amp; flow</small></span></a>
+<a aria-current="page" class="aeropress-link" href="./aeropress.html"><span aria-hidden="true" class="nav-icon aeropress"><img src="./aeropress.png" alt="" width="28" height="28"/></span><span><strong>AeroPress</strong><small data-i18n="">Steep, swirl &amp; press</small></span></a>
+</nav>
+<label class="language-picker">
+<span data-i18n="">Language</span>
+<select id="app-language">
+<option lang="en" value="en">English</option>
+<option lang="hu" value="hu">Magyar</option>
+</select>
+</label>
+</div>
+<div class="ritual-banner"><div><p class="eyebrow" data-i18n="">AeroPress</p><p class="ritual-title" data-i18n="">James Hoffmann’s AeroPress</p></div><img alt="" height="512" src="./aeropress.png" width="512"/></div>
+</div>
+<header class="page-header">
+<div class="identity">
+<div>
+<h1>AeroPress</h1>
+<p data-i18n="">Brew James Hoffmann’s AeroPress recipe with a step-by-step timer.</p>
+</div>
+</div>
+<button class="reset" data-i18n="" id="reset" type="button">Reset recipe</button>
+</header>
+
+<div class="layout">
+<section id="brew-settings" aria-labelledby="settings-title" class="settings">
+<h2 data-i18n="" id="settings-title">Brew settings</h2>
+<fieldset aria-describedby="servings-help" class="control">
+<legend class="field-label" data-i18n="">Servings</legend>
+<div class="segments servings">
+<label><input checked="" name="servings" type="radio" value="1"/><span>1</span></label>
+<label><input name="servings" type="radio" value="2"/><span>2</span></label>
+<label><input name="servings" type="radio" value="3"/><span>3</span></label>
+<label><input name="servings" type="radio" value="4"/><span>4</span></label>
+</div>
+<p class="field-help" data-i18n="" id="servings-help">Brew each serving separately with 11 g of coffee and 200 g of water.</p>
+</fieldset>
+<div class="control">
+<label class="field-label" data-i18n="" for="roast">Roast level</label>
+<select id="roast">
+<option data-i18n="" selected="" value="light">Light</option>
+<option data-i18n="" value="medium">Medium</option>
+<option data-i18n="" value="dark">Dark</option>
+</select>
+</div>
+</section>
+<section aria-labelledby="recipe-title" class="recipe">
+<div class="recipe-overview">
+<div class="recipe-heading">
+<h2 data-i18n="" id="recipe-title">Your recipe</h2>
+<span data-i18n="" id="batch-detail">11 g coffee · 1 serving</span>
+</div>
+<dl class="metrics">
+<div><dt data-i18n="">Brew water</dt><dd id="water">200 <span>g</span></dd></div>
+<div><dt data-i18n="">Coffee : water</dt><dd id="ratio">1:18.2</dd></div>
+<div><dt data-i18n="">Water temp.</dt><dd id="temperature">100 <span>°C</span></dd></div>
+</dl>
+<p class="temperature-note" data-i18n="" id="temperature-note">Use water just off the boil and grind on the finer side of medium.</p>
+<button type="button" id="settings-toggle" aria-controls="brew-settings" aria-expanded="false"><span data-i18n="">Brew settings</span></button>
+</div>
+<div class="pour-plan">
+<div class="plan-heading">
+<h3 data-i18n="">Brew schedule</h3>
+<span data-i18n="">Per serving</span>
+</div>
+<p class="batch-note" hidden="" id="batch-note"></p>
+<div aria-label="Brew timer" class="timer" data-i18n-attr="aria-label">
+<span class="timer-time" id="timer-time" role="timer">0:00</span>
+<button data-i18n="" id="timer-toggle" type="button">Start timer</button>
+<button data-i18n="" disabled="" id="timer-reset" type="button">Reset timer</button>
+</div>
+<ol class="stages" id="schedule"></ol>
+<p class="plan-note" data-i18n="" id="plan-note">Set the AeroPress upright on a sturdy mug with a paper filter and add the ground coffee. Start the timer after pouring.</p>
+</div>
+</section>
+</div>
+<details class="source-note">
+<summary data-i18n="">Recipe notes &amp; sources</summary>
+<p class="field-help" data-i18n="">Hoffmann uses an upright AeroPress with an un-rinsed paper filter. His original light-roast recipe uses 11 g of coffee and 200 g of water. The medium- and dark-roast temperature ranges come from AeroPrecipe.</p>
+<p><a href="https://www.youtube.com/watch?v=j6VlT_jUVPc" data-i18n="">James Hoffmann’s video</a> · <a href="https://aeroprecipe.com/recipes/james-hoffmann-aeropress-recipe">AeroPrecipe</a></p>
+</details>
+<noscript><p class="batch-note" data-i18n="">Enable JavaScript to calculate your recipe and show the brew schedule.</p></noscript>
+</main>
+</body>
+</html>

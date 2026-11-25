@@ -3,13 +3,21 @@ html { scroll-behavior:smooth; scroll-padding-top:24px; }
 .filter-theme { --accent:#365f4e; --ink-panel:#294b3f; }
 .workspace { padding-top:28px; }
 .brew-toolbar { align-items:stretch; gap:16px; }
-.brew-nav { flex:1; display:grid; grid-template-columns:1fr 1fr; width:auto; padding:6px; gap:8px; background:#eae2d6; }
+.brew-nav { flex:1; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); width:auto; padding:6px; gap:8px; background:#eae2d6; }
 .brew-nav a { display:flex; justify-content:flex-start; gap:12px; padding:12px 16px; min-height:70px; }
 .brew-nav strong { display:block; font-size:1rem; }
 .brew-nav small { display:block; font-size:.76rem; font-weight:450; margin-top:4px; }
 .nav-icon { font-size:1.7rem; }
 .brew-nav .filter-link[aria-current] { color:#284d3c; border-color:#a6baab; background:#e4ece1; }
 .brew-nav .espresso-link[aria-current] { color:#793821; border-color:#d7ac94; background:#f4dfcf; }
+.brew-nav .aeropress-link[aria-current] { color: #74320f; border-color: #daa57b; background: #f8e1cb; }
+.aeropress-theme { --accent: #984719; --ink-panel: #8d3e17; }
+.aeropress-theme .recipe-overview { background: linear-gradient(125deg, #8d3e17, #a84b1b); }
+.aeropress-theme .recipe-heading span, .aeropress-theme .temperature-note,
+.aeropress-theme .metrics dt, .aeropress-theme .metrics dd span { color: #ffead7; }
+.aeropress-theme .metrics > div + div { border-color: #f6b580; }
+.aeropress-theme .ritual-banner img { object-fit: contain; }
+.nav-icon.aeropress img { display: block; object-fit: contain; }
 .language-picker { align-content:center; }
 .ritual-banner { display:flex; justify-content:space-between; align-items:center; background:#eee5d5; border:1px solid #e1d5c1; border-radius:24px; overflow:hidden; margin:0 0 24px; padding:18px 30px; min-height:150px; }
 .ritual-banner img { width:45%; height:150px; object-fit:contain; }
@@ -149,7 +157,7 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
   .workspace .ritual-banner img { flex: none; width: 34%; max-width: 130px; height: 60px; }
   .workspace .ritual-title { margin: 0; font-size: 1.3rem; line-height: 1.15; }
   .brew-nav .nav-icon { font-size: 1rem; }
-  .nav-icon.filter img { width: 19px; }
+  .nav-icon.filter img, .nav-icon.aeropress img { width: 19px; height: 23px; }
   .language-picker > span {
     position: absolute;
     width: 1px;
@@ -186,4 +194,12 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
   .workspace:has(#settings-toggle[aria-expanded="false"]) #brew-settings { display: none; }
   .filter-theme .recipe-overview, .filter-theme .pour-plan { padding-block: 14px; }
   .filter-theme .metrics, .filter-theme .temperature-note { margin-top: 10px; }
+  .aeropress-theme .recipe-overview, .aeropress-theme .pour-plan { padding-block: 14px; }
+  .aeropress-theme .metrics, .aeropress-theme .temperature-note { margin-top: 10px; }
+}
+
+@media (max-width: 420px) {
+  .brew-toolbar { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .brew-toolbar .brew-nav { order: 0; }
+  .brew-toolbar .language-picker { order: 1; }
 }
