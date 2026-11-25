@@ -332,6 +332,8 @@ export const hungarian = Object.freeze({
   "Recipe notes & sources": "Receptjegyzetek és források",
   "Why & what to watch": "Miért, és mire figyelj?",
   "See advice": "Részletek",
+  "Decrease brew temperature": "Alacsonyabb főzési hőmérséklet",
+  "Increase brew temperature": "Magasabb főzési hőmérséklet",
   "Decrease coffee dose": "Kevesebb őrlemény",
   "Increase coffee dose": "Több őrlemény",
   "Decrease espresso yield": "Kevesebb ital",
