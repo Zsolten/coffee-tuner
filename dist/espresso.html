@@ -90,14 +90,26 @@
 </fieldset>
 <fieldset class="control">
 <legend class="field-label" data-i18n="">How did it flow?</legend>
-<select aria-label="How did it flow?" class="mobile-select" data-i18n-attr="aria-label" id="mobile-flow"><option data-i18n="" value="fast">Fast / gushing</option><option data-i18n="" selected="" value="steady">Steady / unsure</option><option data-i18n="" value="slow">Slow / choking</option><option data-i18n="" value="uneven">Uneven / spraying</option></select><div class="segments flow-options">
+<select aria-label="How did it flow?" class="mobile-select" data-i18n-attr="aria-label" id="mobile-flow"><option data-i18n="" value="fast">Fast / gushing</option><option data-i18n="" value="steady">Steady</option><option data-i18n="" value="slow">Slow / choking</option><option data-i18n="" value="uneven">Uneven / spraying</option><option data-i18n="" selected="" value="auto">Use shot time / unsure</option></select><div class="segments flow-options">
 <label><input name="flow" type="radio" value="fast"/><span data-i18n="">Fast / gushing</span></label>
-<label><input checked="" name="flow" type="radio" value="steady"/><span data-i18n="">Steady / unsure</span></label>
+<label><input name="flow" type="radio" value="steady"/><span data-i18n="">Steady</span></label>
 <label><input name="flow" type="radio" value="slow"/><span data-i18n="">Slow / choking</span></label>
 <label><input name="flow" type="radio" value="uneven"/><span data-i18n="">Uneven / spraying</span></label>
+<label><input checked="" name="flow" type="radio" value="auto"/><span data-i18n="">Use shot time / unsure</span></label>
 </div>
 <p class="field-help" data-i18n="">Judge flow against your usual shots at the same dose and yield.</p>
 </fieldset>
+<div class="control">
+<label class="field-label" for="shot-time" data-i18n="">Shot time (s)</label>
+<div class="shot-timing">
+<div class="weight-stepper">
+<button aria-label="Decrease shot time" data-i18n-attr="aria-label" data-step="-1" data-step-target="shot-time" type="button">−</button>
+<input id="shot-time" type="number" inputmode="numeric" min="1" max="180" step="1" placeholder="—" aria-describedby="shot-time-help"/>
+<button aria-label="Increase shot time" data-i18n-attr="aria-label" data-step="1" data-step-target="shot-time" type="button">+</button>
+</div>
+<p class="field-help" id="shot-time-help" data-i18n="">Optional. Time from pump or lever start to target yield, including pre-infusion.</p>
+</div>
+</div>
 
 </section>
 <section aria-labelledby="next-title" class="recipe next-shot">
@@ -112,6 +124,7 @@
 <section class="pour-plan adjustment-notes" aria-labelledby="explanation-title"><h2 id="explanation-title" data-i18n="">Why &amp; what to watch</h2>
 <h3 data-i18n="">Why this is the next step</h3>
 <p data-i18n="" id="adjustment-why">With a steady pour, a little more yield can lift extraction and soften sharp sourness. Expect a slightly lighter body.</p>
+<p id="timing-cue" hidden></p>
 <h3 data-i18n="">Keep steady</h3>
 <p data-i18n="" id="adjustment-keep">Dose, grind, temperature, and pre-infusion. Taste before changing anything else.</p>
 <h3 data-i18n="">What to look for</h3>
@@ -122,7 +135,7 @@
 </section>
 </section>
 </div><details class="source-note"><summary data-i18n="">Recipe notes &amp; sources</summary><p class="field-help" data-i18n="">How to use this guide: the decision map is an app interpretation, not a verbatim video recipe. Yield targets use a trial change of 10%; this is not a rule from either video. Taste the result before making another change.</p>
-<p class="field-help"><a data-i18n="" href="https://www.youtube.com/watch?v=QAzE-_ocf1U" rel="noopener noreferrer" target="_blank">James Hoffmann on espresso temperature</a> · <a data-i18n="" href="https://lamarzocco.com/de/de/wp-content/uploads/2024/02/brewbook-print-1.pdf" rel="noopener noreferrer" target="_blank">La Marzocco’s brew guide</a></p></details>
+<p class="field-help"><a data-i18n="" href="https://www.youtube.com/watch?v=QAzE-_ocf1U" rel="noopener noreferrer" target="_blank">James Hoffmann on espresso temperature</a> · <a data-i18n="" href="https://www.youtube.com/watch?v=hQaV3w_XNiw" rel="noopener noreferrer" target="_blank">James Hoffmann on shot time</a> · <a data-i18n="" href="https://lamarzocco.com/de/de/wp-content/uploads/2024/02/brewbook-print-1.pdf" rel="noopener noreferrer" target="_blank">La Marzocco’s brew guide</a></p><p class="field-help" data-i18n="">Under 20 s and over 40 s are rough cues for a conventional shot. If you use a long pre-infusion or a different brew ratio, choose the flow you observed.</p></details>
 <section aria-labelledby="baseline-title" class="method-guide">
 <div class="guide-heading"><h2 data-i18n="" id="baseline-title">Start with a repeatable shot</h2></div>
 <p class="field-help" data-i18n="">Check headspace with the dry, tamped puck: insert and remove the portafilter without brewing. If the shower screen or screw leaves a mark, reduce the dose. Basket ratings are a starting point; coffee density changes the space occupied.</p>

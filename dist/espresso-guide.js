@@ -68,6 +68,14 @@ const adjustments = {
   },
 };
 
+export function resolveShotFlow(observedFlow, seconds) {
+  if (observedFlow !== "auto") return observedFlow;
+  if (!Number.isInteger(seconds) || seconds < 1 || seconds > 180) return "steady";
+  if (seconds < 20) return "fast";
+  if (seconds > 40) return "slow";
+  return "steady";
+}
+
 export function nextAdjustment(taste, flow) {
   if (flow === "uneven" || taste === "mixed") return preparePuck;
   if (taste === "balanced") return adjustments.balanced;

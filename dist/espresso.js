@@ -1,4 +1,4 @@
-import { calculateYieldTarget, espressoTemperatureGuide, nextAdjustment } from "./espresso-guide.js";
+import { calculateYieldTarget, espressoTemperatureGuide, nextAdjustment, resolveShotFlow } from "./espresso-guide.js";
 import { formatNumber, initializeLanguage, t } from "./language.js";
 
 const byId = (id) => document.getElementById(id);
@@ -6,6 +6,7 @@ const dose = byId("shot-dose");
 const yieldInCup = byId("shot-yield");
 const roast = byId("espresso-roast");
 const temperature = byId("shot-temperature");
+const shotTime = byId("shot-time");
 
 function setText(id, message, values) {
   byId(id).textContent = t(message, values);
@@ -17,8 +18,23 @@ function selected(name) {
 
 function renderAdjustment() {
   const taste = selected("taste");
-  const flow = selected("flow");
+  const observedFlow = selected("flow");
+  const timeValid = shotTime.validity.valid;
+  const seconds = timeValid ? shotTime.valueAsNumber : NaN;
+  const flow = resolveShotFlow(observedFlow, seconds);
   const recommendation = nextAdjustment(taste, flow);
+  shotTime.setAttribute("aria-invalid", String(!timeValid));
+  byId("shot-time-help").classList.toggle("error", !timeValid);
+  setText("shot-time-help", timeValid
+    ? "Optional. Time from pump or lever start to target yield, including pre-infusion."
+    : "Enter a whole number of seconds from 1 to 180.");
+  const timingCue = byId("timing-cue");
+  timingCue.hidden = observedFlow !== "auto" || flow === "steady";
+  if (!timingCue.hidden) {
+    setText("timing-cue", flow === "fast"
+      ? "{seconds} s is fast for a conventional espresso."
+      : "{seconds} s is slow for a conventional espresso.", { seconds });
+  }
   const temperatureValid = temperature.validity.valid;
   temperature.setAttribute("aria-invalid", String(!temperatureValid));
   byId("shot-temperature-help").classList.toggle("error", !temperatureValid);
@@ -81,6 +97,7 @@ dose.addEventListener("input", renderAdjustment);
 yieldInCup.addEventListener("input", renderAdjustment);
 roast.addEventListener("change", renderAdjustment);
 temperature.addEventListener("input", renderAdjustment);
+shotTime.addEventListener("input", renderAdjustment);
 
 for (const name of ["taste", "flow"]) {
   byId("mobile-" + name).addEventListener("change", event => {
@@ -91,22 +108,25 @@ for (const name of ["taste", "flow"]) {
 document.querySelectorAll("[data-step-target]").forEach(button => {
   button.addEventListener("click", () => {
     const field = byId(button.dataset.stepTarget);
-    const initial = Number.isFinite(field.valueAsNumber) ? field.valueAsNumber : Number(field.defaultValue);
+    const initial = Number.isFinite(field.valueAsNumber) ? field.valueAsNumber : Number(field.defaultValue || 30);
     const increment = field.id === "shot-dose" ? 0.1 : 1;
     field.value = Math.min(Number(field.max), Math.max(Number(field.min), Math.round((initial + Number(button.dataset.step) * increment) * 10) / 10));
     renderAdjustment();
   });
 });
 const key = "coffee-tuner-espresso-v1";
-const fields = [dose, yieldInCup, roast, temperature];
+const fields = [dose, yieldInCup, roast, temperature, shotTime];
+const optionalFields = new Set([temperature, shotTime]);
 try {
   const saved = JSON.parse(localStorage.getItem(key)) || {};
   for (const field of fields) {
     if (saved[field.id] === undefined) continue;
     const initial = field.value;
     field.value = saved[field.id];
-    if (!field.validity.valid || (!field.value && field !== temperature)) field.value = initial;
+    if (!field.validity.valid || (!field.value && !optionalFields.has(field))) field.value = initial;
   }
+  // The old "Steady / unsure" option becomes automatic unless a newer selection is saved.
+  if (!Object.hasOwn(saved, "shot-time") && saved.flow === "steady") saved.flow = "auto";
   for (const input of document.querySelectorAll('input[type="radio"]')) {
     if (input.value === saved[input.name]) input.checked = true;
   }
@@ -116,7 +136,7 @@ function remember() {
   try {
     const state = JSON.parse(localStorage.getItem(key)) || {};
     for (const field of fields) {
-      if (field.validity.valid && (field.value || field === temperature)) state[field.id] = field.value;
+      if (field.validity.valid && (field.value || optionalFields.has(field))) state[field.id] = field.value;
     }
     state.taste = selected("taste");
     state.flow = selected("flow");

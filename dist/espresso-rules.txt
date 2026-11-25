@@ -13,6 +13,10 @@ Read from the top. The first matching rule wins. Yield means the weight of espre
 
 Coffee Tuner uses a 10% yield step for comparison. From 36 g, that means 39.6 g longer or 32.4 g shorter. The percentage and the rule order are app design choices. The roast-based pre-infusion examples are separate from these decisions and come from Flair.
 
+Shot time
+Measure from pump or lever start to target yield, including pre-infusion. With "Use shot time / unsure" selected, the app treats times under 20 s as fast and times over 40 s as slow. These are app cues for a conventional shot, and manual flow selection takes precedence. A fast, sharply sour shot suggests trying a little finer. A slow shot with an unwanted taste can benefit from going a little coarser. Both grind trials keep the same dose and target yield. A fast, bitter shot keeps the taste-based advice. Time alone does not identify either sourness or bitterness. Keep a balanced shot even if its time is unusual, provided the flow is even.
+Hoffmann on shot time: https://www.youtube.com/watch?v=hQaV3w_XNiw
+
 Temperature
 The app uses starting bands of 88–92 °C for dark roast, 91–94 °C for medium roast, and 93–96 °C for light roast. The bands overlap and are starter settings for a conventional espresso. Coffee and machines vary.
 With steady flow, change yield first. If a later shot still tastes sharply sour, try a 1 °C increase. If it still tastes bitter, try a 1 °C decrease. The app suggests a change only when the entered temperature and selected roast allow that direction within the relevant bound. Keep dose, grind, yield and pre-infusion fixed while comparing temperatures. Use the machine’s usual setting if you cannot adjust it.
