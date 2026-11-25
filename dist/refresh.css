@@ -157,11 +157,11 @@ body:has(.brew-settings-sheet[open]) { overflow: hidden; }
   position: sticky;
   z-index: 1;
   top: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px 18px;
+  gap: 6px;
+  padding: 12px clamp(10px, 3vw, 18px);
   border-bottom: 1px solid var(--line);
   background: var(--paper);
 }
@@ -173,7 +173,7 @@ body:has(.brew-settings-sheet[open]) { overflow: hidden; }
   box-shadow: none;
 }
 .brew-settings-sheet #brew-settings > .control { margin-top: 16px; }
-.brew-settings-sheet #reset { margin-top: 16px; }
+.brew-sheet-header .reset { align-self: center; padding-inline: 10px; }
 
 
 @media (max-width: 756px) {

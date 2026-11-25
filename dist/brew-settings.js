@@ -15,7 +15,13 @@ export function setupBrewSettings() {
   const reset = document.getElementById("reset");
   const pageHeader = document.querySelector(".page-header");
 
-  openButton.addEventListener("click", () => sheet.showModal());
+  openButton.addEventListener("click", () => {
+    pickerControl.append(picker);
+    sheet.showModal();
+  });
+  sheet.addEventListener("close", () => {
+    if (mobile.matches && !sheet.open) toolbar.prepend(picker);
+  });
   closeButton.addEventListener("click", () => sheet.close());
   sheet.addEventListener("click", (event) => {
     if (event.target === sheet) sheet.close();
@@ -24,14 +30,16 @@ export function setupBrewSettings() {
   function positionSettings() {
     toolbar.hidden = !mobile.matches;
     if (mobile.matches) {
-      toolbar.prepend(pickerControl);
+      if (!sheet.open) toolbar.prepend(picker);
       closeButton.before(title);
       sheet.append(settings);
-      settings.append(reset);
+      settings.prepend(pickerControl);
+      closeButton.before(reset);
       return;
     }
 
     if (sheet.open) sheet.close();
+    pickerControl.append(picker);
     pickerPosition.after(pickerControl);
     settings.prepend(title);
     recipe.before(settings);

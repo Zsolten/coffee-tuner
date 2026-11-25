@@ -107,9 +107,6 @@
 .recipe-delete-dialog .editor-step-heading { justify-content: flex-end; }
 
 @media (max-width: 756px) {
-  .brew-recipe-toolbar .recipe-picker { display: contents; }
-  .brew-recipe-toolbar .method-heading { grid-column: 1 / -1; margin: 0; }
-  .brew-recipe-toolbar .method-actions button { min-height: 36px; padding-inline: 10px; }
   #recipe-editor { padding-top: 4px; }
 }
 @media (max-width: 480px) {

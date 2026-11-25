@@ -124,6 +124,7 @@ export const hungarian = Object.freeze({
   "Dial in V60 brew water, bloom, pours, and target timing for your batch.": "Állítsd be a V60 recept vízmennyiségét, az előáztatást, a felöntéseket és az időzítést.",
   "Coffee Tuner": "Coffee Tuner",
   "Dial in James Hoffmann’s one-cup V60 method.": "Szabd testre James Hoffmann egycsészés V60 receptjét.",
+  "Reset": "Visszaállítás",
   "Reset recipe": "Alaprecept visszaállítása",
   "Brew settings": "Főzési beállítások",
   "Coffee dose": "Őrlemény mennyisége",

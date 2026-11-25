@@ -264,6 +264,7 @@ export function setupMethods({ menu, key, presets, onChange, fallbackActive, req
     const recipe = editPreset?.(base) ?? base;
     const seed = isEdit ? recipe.steps : [{ start: 0, water: recipe.water }];
     opener = event.currentTarget;
+    opener.closest("dialog[open]")?.close();
     scrollTop = window.scrollY;
     el("editor-method").textContent = t(requireFinish ? "V60 recipe" : "AeroPress recipe");
     el("editor-title").textContent = t(isEdit ? (editing ? "Edit recipe" : "Copy and edit recipe") : "Add recipe");
@@ -286,6 +287,7 @@ export function setupMethods({ menu, key, presets, onChange, fallbackActive, req
   function closeEditor() {
     editor.hidden = true;
     window.scrollTo({ top: scrollTop, behavior: "instant" });
+    if (opener.closest("#mobile-brew-settings")) el("settings-toggle").click();
     opener.focus({ preventScroll: true });
   }
 
