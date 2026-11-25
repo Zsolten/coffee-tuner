@@ -38,8 +38,7 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
 .weight-stepper button { min-height:52px; padding:0; border:0; background:#eee0d2; color:#713d2a; font-size:1.4rem; }
 .weight-stepper button:hover:not(:disabled) { background:#e4c9b5; }
 .weight-stepper:has(input[aria-invalid=true]) { border-color:#a62e24; outline:1px solid #a62e24; }
-.adjustment-notes summary { margin-bottom:8px; }
-.adjustment-notes:not([open]) summary { margin:0; }
+.next-shot .adjustment-notes h2 { margin-bottom: 14px; font: 700 1.1rem/1.3 var(--display); }
 .mobile-select { display:none; }
 #next-result,#pre-infusion { scroll-margin-top:20px; }
 @media(max-width:756px) {
@@ -62,7 +61,7 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
  .espresso-page .settings { padding:18px; }
  .espresso-page .settings h2 { font-size:1.6rem; }
  .espresso-page .taste-options,.espresso-page .flow-options { display:none; }
- .mobile-select { display:block; min-height:50px; }
+ .mobile-select { display:block; min-height:44px; }
  .espresso-page .control { margin-top:14px; }
  .espresso-page .weights { margin-top:18px; }
  .next-shot { position:static; }
@@ -114,29 +113,38 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
 
 #settings-toggle { display: none; }
 
-@media (min-width: 756.01px) {
-  .adjustment-notes > summary { display: block; cursor: default; }
-}
 
 @media (max-width: 756px) {
   .workspace { padding-top: 8px; }
+  .brew-card {
+    background: #eee5d5;
+    border: 1px solid #e1d5c1;
+    border-radius: 16px;
+    padding: 9px clamp(8px, 2.5vw, 14px);
+    margin-bottom: 12px;
+  }
+  .decision-inputs .weight-stepper button { min-height: 44px; font-size: 1.2rem; }
+  .decision-inputs .weight-stepper { grid-template-columns: 36px minmax(0,1fr) 36px; }
   .brew-toolbar {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 6px;
+    gap: 10px;
+    margin-bottom: 10px;
   }
-  .brew-toolbar .brew-nav { order: 0; gap: 2px; padding: 3px; }
+  .brew-toolbar .brew-nav { order: 0; gap: 4px; padding: 0; background: transparent; border: 0; }
   .brew-nav a { min-height: 44px; padding: 4px; gap: 4px; justify-content: center; }
   .brew-nav strong { font-size: .82rem; }
   .brew-nav small, .ritual-banner .eyebrow { display: none; }
   .workspace .ritual-banner {
     min-height: 0;
     gap: 8px;
-    margin-bottom: 6px;
-    padding: 10px 16px;
-    border-radius: 12px;
+    margin: 0;
+    padding: 8px 4px 0;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #dfd3c1;
+    border-radius: 0;
   }
   .workspace .ritual-banner img { flex: none; width: 34%; max-width: 130px; height: 60px; }
   .workspace .ritual-title { margin: 0; font-size: 1.3rem; line-height: 1.15; }

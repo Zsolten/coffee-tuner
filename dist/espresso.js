@@ -92,18 +92,3 @@ initializeLanguage(() => {
   renderAdjustment();
   renderInfusion();
 });
-
-const mobileLayout = window.matchMedia("(max-width: 756px)");
-const explanation = document.querySelector(".adjustment-notes");
-let mobileExplanationOpen = explanation.open;
-
-function applyExplanationLayout() {
-  explanation.querySelector("summary").inert = !mobileLayout.matches;
-  explanation.open = mobileLayout.matches ? mobileExplanationOpen : true;
-}
-
-explanation.addEventListener("toggle", () => {
-  if (mobileLayout.matches) mobileExplanationOpen = explanation.open;
-});
-mobileLayout.addEventListener("change", applyExplanationLayout);
-applyExplanationLayout();
