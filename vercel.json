@@ -2,5 +2,19 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": "node build-analytics.mjs",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/v60",
+      "permanent": true
+    },
+    {
+      "source": "/index",
+      "destination": "/v60",
+      "permanent": true
+    }
+  ]
 }

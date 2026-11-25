@@ -25,6 +25,7 @@ for (const page of ["index.html", "espresso.html", "aeropress.html"]) {
   const previous = /<!-- Vercel Web Analytics -->[\s\S]*?<!-- \/Vercel Web Analytics -->\n/;
   const pageWithAnalytics = html.replace(previous, "").replace("</head>", analytics + "\n</head>");
   await writeFile(file, pageWithAnalytics);
+  if (page === "index.html") await writeFile(new URL("./dist/v60.html", import.meta.url), pageWithAnalytics);
 }
 
 console.info(`Web Analytics installed using ${config.analytics?.scriptSrc ? "the project endpoint" : "the standard endpoint"}.`);
