@@ -45,6 +45,14 @@
 #temperature-start:has(+ #temperature-follow-up:not([hidden])) { margin-bottom: 4px; }
 .taste-options, .flow-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .taste-options label:last-child, .flow-options label:last-child { grid-column: span 2; }
+.taste-tip { margin: 0 0 8px; }
+.tasting-tips { margin-top: 4px; border-bottom: 1px solid var(--line); }
+.tasting-tips summary { color: var(--accent); font-size: .85rem; }
+.tasting-tips > .field-help { margin-top: 0; }
+.tasting-notes { padding-bottom: 10px; }
+.tasting-notes > div { margin-top: 9px; }
+.tasting-notes dt { font-size: .85rem; font-weight: 700; }
+.tasting-notes dd { color: var(--muted); font-size: .85rem; line-height: 1.45; }
 .decision-inputs { container-type: inline-size; }
 .weight-inputs {
   display: grid;
@@ -87,6 +95,7 @@
   line-height: 1.03;
 }
 .adjustment-detail { margin-top: 9px; color: #f3d9ca; font-size: .95rem; line-height: 1.5; }
+.next-shot-tip { margin-top: 10px; color: #f3d9ca; font-size: .85rem; line-height: 1.45; }
 .adjustment-notes h3 { font-size: .93rem; font-weight: 750; }
 .adjustment-notes p { margin: 5px 0 16px; color: var(--muted); font-size: .9rem; line-height: 1.55; }
 .adjustment-notes p:last-child { margin-bottom: 0; }

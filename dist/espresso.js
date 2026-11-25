@@ -80,6 +80,7 @@ function renderAdjustment() {
   });
   setText("adjustment-title", recommendation.title);
   setText("adjustment-detail", detail);
+  byId("next-shot-tip").hidden = recommendation.change === "keep";
   setText("adjustment-why", recommendation.why);
   setText("adjustment-keep", recommendation.keep);
   setText("adjustment-watch", recommendation.watch);
