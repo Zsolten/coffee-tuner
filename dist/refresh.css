@@ -18,7 +18,50 @@ html { scroll-behavior:smooth; scroll-padding-top:24px; }
 .aeropress-theme .metrics > div + div { border-color: #f6b580; }
 .aeropress-theme .ritual-banner img { object-fit: contain; }
 .nav-icon.aeropress img { display: block; object-fit: contain; }
-.language-picker { align-content:center; }
+.language-picker {
+  position: relative;
+  flex: 0 0 44px;
+  place-self: center;
+  width: 44px;
+  height: 44px;
+  color: #60493d;
+  background: #f7f1e9;
+  border: 1px solid #d9cbbb;
+  border-radius: 10px;
+}
+.language-picker:hover { background: var(--paper); }
+.language-picker:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.language-picker::before, .language-picker::after {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.language-picker::before {
+  width: 20px;
+  background: linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat;
+}
+.language-picker::after { width: 9px; }
+.language-picker > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.language-picker select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  opacity: 0;
+  cursor: pointer;
+}
 .ritual-banner { display:flex; justify-content:space-between; align-items:center; background:#eee5d5; border:1px solid #e1d5c1; border-radius:24px; overflow:hidden; margin:0 0 24px; padding:18px 30px; min-height:150px; }
 .ritual-banner img { width:45%; height:150px; object-fit:contain; }
 .eyebrow { text-transform:uppercase; letter-spacing:.16em; font-size:.7rem; font-weight:800; color:var(--accent); }
@@ -53,8 +96,6 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
  .workspace { width:calc(100% - 28px); max-width:535px; padding-top:16px; }
  .brew-toolbar { gap:10px; margin-bottom:14px; }
  .brew-nav { order:2; flex-basis:100%; }
- .language-picker { margin-left:auto; }
- .language-picker select { min-height:44px; }
  .brew-nav a { padding:10px; gap:8px; min-height:66px; }
  .brew-nav small { font-size:.7rem; line-height:1.35; }
  .brew-nav strong { font-size:.93rem; }
@@ -135,13 +176,26 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
   .decision-inputs .weight-stepper { grid-template-columns: 36px minmax(0,1fr) 36px; }
   .brew-toolbar {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) 44px;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 10px;
   }
-  .brew-toolbar .brew-nav { order: 0; gap: 4px; padding: 0; background: transparent; border: 0; }
-  .brew-nav a { min-height: 44px; padding: 4px; gap: 4px; justify-content: center; }
+  .brew-toolbar .brew-nav {
+    order: 0;
+    grid-template-columns: .72fr 1fr 1.1fr;
+    gap: 4px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+  .brew-nav a {
+    min-height: 44px;
+    padding: 5px 7px;
+    gap: 4px;
+    justify-content: center;
+    white-space: nowrap;
+  }
   .brew-nav strong { font-size: .82rem; }
   .brew-nav small, .ritual-banner .eyebrow { display: none; }
   .workspace .ritual-banner {
@@ -158,14 +212,6 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
   .workspace .ritual-title { margin: 0; font-size: 1.3rem; line-height: 1.15; }
   .brew-nav .nav-icon { font-size: 1rem; }
   .nav-icon.filter img, .nav-icon.aeropress img { width: 19px; height: 23px; }
-  .language-picker > span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-  }
-  .language-picker select { min-width: 0; padding: 4px; font-size: .84rem; }
   .workspace .page-header { display: none; }
   .recipe #brew-settings { border-radius: 0; box-shadow: none; }
   .recipe #brew-settings .reset { margin-top: 14px; }
@@ -198,8 +244,6 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
   .aeropress-theme .metrics, .aeropress-theme .temperature-note { margin-top: 10px; }
 }
 
-@media (max-width: 420px) {
-  .brew-toolbar { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .brew-toolbar .brew-nav { order: 0; }
-  .brew-toolbar .language-picker { order: 1; }
+@media (max-width: 460px) {
+  .brew-nav a { flex-direction: column; padding-inline: 4px; gap: 2px; }
 }
