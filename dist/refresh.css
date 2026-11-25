@@ -7,7 +7,8 @@ html { scroll-behavior:smooth; scroll-padding-top:24px; }
 .brew-nav a { display:flex; justify-content:flex-start; gap:12px; padding:12px 16px; min-height:70px; }
 .brew-nav strong { display:block; font-size:1rem; }
 .brew-nav small { display:block; font-size:.76rem; font-weight:450; margin-top:4px; }
-.nav-icon { font-size:1.7rem; }
+.brew-nav .nav-icon { flex: none; width: 32px; height: 32px; }
+.brew-nav .nav-icon img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .brew-nav .filter-link[aria-current] { color:#284d3c; border-color:#a6baab; background:#e4ece1; }
 .brew-nav .espresso-link[aria-current] { color:#793821; border-color:#d7ac94; background:#f4dfcf; }
 .brew-nav .aeropress-link[aria-current] { color: #74320f; border-color: #daa57b; background: #f8e1cb; }
@@ -17,7 +18,6 @@ html { scroll-behavior:smooth; scroll-padding-top:24px; }
 .aeropress-theme .metrics dt, .aeropress-theme .metrics dd span { color: #ffead7; }
 .aeropress-theme .metrics > div + div { border-color: #f6b580; }
 .aeropress-theme .ritual-banner img { object-fit: contain; }
-.nav-icon.aeropress img { display: block; object-fit: contain; }
 .language-picker {
   position: relative;
   flex: 0 0 44px;
@@ -126,7 +126,6 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
  .espresso-page .ritual-title { font-size:1.2rem; }
  .weight-inputs label { min-height:40px; }
 }
-.nav-icon.filter img{object-fit:contain;max-width:100%;height:auto}
 #method-dialog{width:min(90vw,30rem);max-height:85vh;border:1px solid #ad9580;border-radius:16px;padding:1.4rem;background:#fffaf4;color:#31271f}
 #method-dialog::backdrop{background:#231b1688}
 #method-form label{display:grid;gap:.3rem;margin:.7rem 0;font-weight:600}
@@ -259,21 +258,7 @@ body:has(.brew-settings-sheet[open]) { overflow: hidden; }
   }
   .workspace .ritual-banner img { flex: none; width: 34%; max-width: 130px; height: 60px; }
   .workspace .ritual-title { margin: 0; font-size: 1.3rem; line-height: 1.15; }
-  .brew-nav .nav-icon {
-    display: grid;
-    place-items: center;
-    flex: none;
-    width: 24px;
-    height: 24px;
-    font-size: 1.2rem;
-    line-height: 1;
-  }
-  .brew-nav .nav-icon img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+  .brew-nav .nav-icon { width: 27px; height: 27px; }
   .workspace .page-header { display: none; }
   .brew-recipe-toolbar {
     display: grid;
