@@ -66,8 +66,8 @@
 </div>
 </div>
 </div>
-<p class="field-help" data-i18n="" id="weight-help">Enter dry grounds and the actual espresso weight.</p>
-<p class="field-help" id="shot-time-help" data-i18n="">Optional. Time from pump or lever start to target yield, including pre-infusion.</p>
+<p class="field-help error" id="weight-help" hidden></p>
+<p class="field-help error" id="shot-time-help" hidden></p>
 <div class="shot-conditions">
 <div>
 <label class="field-label" for="espresso-roast" data-i18n="">Roast level</label>
@@ -82,7 +82,7 @@
 </div>
 </div>
 </div>
-<p class="field-help" id="shot-temperature-help" data-i18n="">Enter your machine’s setting if you know it.</p>
+<p class="field-help error" id="shot-temperature-help" hidden></p>
 </fieldset>
 <fieldset class="control">
 <legend class="field-label" data-i18n="">What did it taste like?</legend>
@@ -105,7 +105,6 @@
 <label><input name="flow" type="radio" value="uneven"/><span data-i18n="">Uneven / spraying</span></label>
 <label><input checked="" name="flow" type="radio" value="auto"/><span data-i18n="">Use shot time / unsure</span></label>
 </div>
-<p class="field-help" data-i18n="">Judge flow against your usual shots at the same dose and yield.</p>
 </fieldset>
 
 </section>

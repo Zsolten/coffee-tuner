@@ -46,7 +46,13 @@
 .taste-options, .flow-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .taste-options label:last-child, .flow-options label:last-child { grid-column: span 2; }
 .decision-inputs { container-type: inline-size; }
-.weight-inputs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.weight-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding-block-start: 8px;
+}
+.decision-inputs .weight-inputs label { min-height: 0; margin-bottom: 5px; }
 .weight-inputs > div { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
 .decision-inputs .weight-inputs .weight-stepper {
   grid-template-columns: clamp(26px, 8cqw, 44px) minmax(0, 1fr) clamp(26px, 8cqw, 44px);

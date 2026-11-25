@@ -12,6 +12,12 @@ function setText(id, message, values) {
   byId(id).textContent = t(message, values);
 }
 
+function showFieldError(id, valid, message) {
+  const error = byId(id);
+  error.hidden = valid;
+  error.textContent = valid ? "" : t(message);
+}
+
 function selected(name) {
   return document.querySelector('input[name="' + name + '"]:checked').value;
 }
@@ -24,10 +30,7 @@ function renderAdjustment() {
   const flow = resolveShotFlow(observedFlow, seconds);
   const recommendation = nextAdjustment(taste, flow);
   shotTime.setAttribute("aria-invalid", String(!timeValid));
-  byId("shot-time-help").classList.toggle("error", !timeValid);
-  setText("shot-time-help", timeValid
-    ? "Optional. Time from pump or lever start to target yield, including pre-infusion."
-    : "Enter a whole number of seconds from 1 to 180.");
+  showFieldError("shot-time-help", timeValid, "Enter a whole number of seconds from 1 to 180.");
   const timingCue = byId("timing-cue");
   timingCue.hidden = observedFlow !== "auto" || flow === "steady";
   if (!timingCue.hidden) {
@@ -37,10 +40,7 @@ function renderAdjustment() {
   }
   const temperatureValid = temperature.validity.valid;
   temperature.setAttribute("aria-invalid", String(!temperatureValid));
-  byId("shot-temperature-help").classList.toggle("error", !temperatureValid);
-  setText("shot-temperature-help", temperatureValid
-    ? "Enter your machine’s setting if you know it."
-    : "Enter a temperature from 80 to 100 °C, with up to one decimal place.");
+  showFieldError("shot-temperature-help", temperatureValid, "Enter a temperature from 80 to 100 °C, with up to one decimal place.");
   const temperatureGuide = espressoTemperatureGuide(
     roast.value, temperatureValid ? temperature.valueAsNumber : NaN, taste, flow,
   );
@@ -56,10 +56,7 @@ function renderAdjustment() {
 
   dose.setAttribute("aria-invalid", String(!doseValid));
   yieldInCup.setAttribute("aria-invalid", String(!yieldValid));
-  byId("weight-help").classList.toggle("error", !valid);
-  setText("weight-help", valid
-    ? "Enter dry grounds and the actual espresso weight."
-    : "Enter a 4–36 g dose and a 4–120 g yield, with up to one decimal place.");
+  showFieldError("weight-help", valid, "Enter a 4–36 g dose and a 4–120 g yield, with up to one decimal place.");
 
   let detail = recommendation.instruction;
   if (recommendation.change === "longer" || recommendation.change === "shorter") {
