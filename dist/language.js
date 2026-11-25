@@ -2,6 +2,7 @@ import { hungarian } from "./hungarian.js";
 
 const storageKey = "brew-tools-language";
 let language = "en";
+const numberFormats = new Map();
 
 export function translateMessage(locale, message, values = {}) {
   const localized = locale === "hu" && Object.hasOwn(hungarian, message) ? hungarian[message] : message;
@@ -12,8 +13,12 @@ export function t(message, values) {
   return translateMessage(language, message, values);
 }
 
-export function formatNumber(value, maximumFractionDigits = 1) {
-  return new Intl.NumberFormat(language, { maximumFractionDigits }).format(value);
+export function formatNumber(value, maximumFractionDigits = 1, minimumFractionDigits = 0) {
+  const key = [language, maximumFractionDigits, minimumFractionDigits].join(":");
+  if (!numberFormats.has(key)) {
+    numberFormats.set(key, new Intl.NumberFormat(language, { maximumFractionDigits, minimumFractionDigits }));
+  }
+  return numberFormats.get(key).format(value);
 }
 
 export function initializeLanguage(render) {

@@ -75,7 +75,9 @@ h1 { font-size: clamp(2.35rem, 5.6vw, 4.2rem); line-height: .98; letter-spacing:
   font-weight: 650;
 }
 .reset span { font-size: 1.13em; margin-right: 3px; }
-.reset:hover { background: #eee3d8; }
+@media (hover: hover) {
+  .reset:hover { background: #eee3d8; }
+}
 
 .layout { display: grid; grid-template-columns: minmax(290px, .87fr) minmax(0, 1.5fr); align-items: stretch; gap: 20px; }
 .settings, .recipe {
@@ -102,7 +104,9 @@ fieldset.control { padding: 0; border: 0; min-inline-size: 0; }
 }
 .stepper:has(input[aria-invalid="true"]) { border-color: var(--accent); }
 .stepper button { border: 0; border-radius: 9px; color: #723c2b; background: transparent; font-size: 1.25rem; }
-.stepper button:hover:not(:disabled) { background: #eee2d4; }
+@media (hover: hover) {
+  .stepper button:hover:not(:disabled) { background: #eee2d4; }
+}
 .dose-entry { display: flex; align-items: baseline; justify-content: center; align-self: center; gap: 4px; color: var(--muted); }
 .dose-entry input {
   appearance: textfield;
@@ -147,7 +151,9 @@ fieldset.control { padding: 0; border: 0; min-inline-size: 0; }
 }
 .segments input:checked + span { color: #743622; background: #fffdf8; border-color: #e2c4b3; box-shadow: 0 1px 2px #3f241117; }
 .segments input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 1px; }
-.segments label:hover input:not(:checked) + span { background: #efe4d8; }
+@media (hover: hover) {
+  .segments label:hover input:not(:checked) + span { background: #efe4d8; }
+}
 
 select {
   width: 100%;
@@ -331,7 +337,9 @@ select {
   color: #743622;
   box-shadow: 0 1px 2px #3f241117;
 }
-.brew-nav a:hover { color: var(--accent); }
+@media (hover: hover) {
+  .brew-nav a:hover { color: var(--accent); }
+}
 
 .brew-toolbar {
   display: flex;

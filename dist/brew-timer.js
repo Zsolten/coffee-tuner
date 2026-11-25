@@ -21,7 +21,9 @@ export function setupBrewTimer() {
   let activeRow = -1;
 
   function setText(id, text) {
-    byId(id).textContent = t(text);
+    const element = byId(id);
+    const translated = t(text);
+    if (element.textContent !== translated) element.textContent = translated;
   }
 
   function renderSchedule(stages) {

@@ -18,9 +18,11 @@
   font-size: .875rem;
   font-weight: 700;
 }
-.method-actions button:not(:disabled):hover, .editor-button:not(:disabled):hover {
-  border-color: var(--accent);
-  background: #f2eadd;
+@media (hover: hover) {
+  .method-actions button:not(:disabled):hover, .editor-button:not(:disabled):hover {
+    border-color: var(--accent);
+    background: #f2eadd;
+  }
 }
 #delete-method:not(:disabled), .editor-remove:not(:disabled) { color: #8b392c; }
 
@@ -92,7 +94,9 @@
 .editor-footer p, #delete-recipe-error { color: #8b392c; font-size: .875rem; }
 .editor-primary, .editor-danger { flex: none; background: var(--accent); color: white; border-color: transparent; }
 .editor-danger { background: #8b392c; }
-.editor-primary:not(:disabled):hover, .editor-danger:not(:disabled):hover { background: #30221c; color: white; }
+@media (hover: hover) {
+  .editor-primary:not(:disabled):hover, .editor-danger:not(:disabled):hover { background: #30221c; color: white; }
+}
 
 .recipe-delete-dialog {
   width: min(calc(100% - 32px), 360px);
