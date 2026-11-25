@@ -210,8 +210,21 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
   }
   .workspace .ritual-banner img { flex: none; width: 34%; max-width: 130px; height: 60px; }
   .workspace .ritual-title { margin: 0; font-size: 1.3rem; line-height: 1.15; }
-  .brew-nav .nav-icon { font-size: 1rem; }
-  .nav-icon.filter img, .nav-icon.aeropress img { width: 19px; height: 23px; }
+  .brew-nav .nav-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+  .brew-nav .nav-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   .workspace .page-header { display: none; }
   .recipe #brew-settings { border-radius: 0; box-shadow: none; }
   .recipe #brew-settings .reset { margin-top: 14px; }
