@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { calculateYieldTarget, nextAdjustment, preInfusionGuide } from "../dist/espresso-guide.js";
+import { calculateYieldTarget, espressoTemperatureGuide, nextAdjustment } from "../dist/espresso-guide.js";
 
 test("taste and flow lead to different next steps for a sour shot", () => {
   assert.equal(nextAdjustment("sour", "fast").change, "finer");
@@ -24,10 +24,13 @@ test("body and strength adjustments work from the measured yield", () => {
   assert.equal(calculateYieldTarget(43.6, "longer"), 48);
 });
 
-test("pre-infusion duration does not imply a guaranteed roast or flavor outcome", () => {
-  assert.equal(preInfusionGuide(0).label, "No intentional hold");
-  for (let seconds = 1; seconds <= 20; seconds++) {
-    assert.equal(preInfusionGuide(seconds).label, "Trial duration");
-    assert.match(preInfusionGuide(seconds).detail, /Seconds alone do not predict/);
-  }
+test("espresso temperature guidance follows roast, taste and steady flow", () => {
+  assert.equal(espressoTemperatureGuide("light", 93, "sour", "steady").target, 94);
+  assert.equal(espressoTemperatureGuide("dark", 93, "bitter", "steady").target, 92);
+  assert.equal(espressoTemperatureGuide("medium", 92.5, "sour", "steady").target, 93.5);
+  assert.equal(espressoTemperatureGuide("medium", 94, "sour", "steady").target, undefined);
+  assert.equal(espressoTemperatureGuide("dark", 88, "bitter", "steady").target, undefined);
+  assert.equal(espressoTemperatureGuide("light", 93, "sour", "uneven").target, undefined);
+  assert.equal(espressoTemperatureGuide("light", 94, "balanced", "steady").target, undefined);
+  assert.equal(espressoTemperatureGuide("medium", NaN, "sour", "steady").target, undefined);
 });

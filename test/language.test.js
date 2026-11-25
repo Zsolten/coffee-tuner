@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { calculateHoffmann, defaultSettings, styles } from "../dist/recipe.js";
-import { nextAdjustment, preInfusionGuide } from "../dist/espresso-guide.js";
+import { espressoTemperatureGuide, nextAdjustment } from "../dist/espresso-guide.js";
 import { hungarian } from "../dist/hungarian.js";
 import { translateMessage } from "../dist/language.js";
 
@@ -30,7 +30,7 @@ test("all V60 schedules and roast notes have Hungarian translations", () => {
   }
 });
 
-test("all espresso decisions and pre-infusion durations have Hungarian translations", () => {
+test("all espresso decisions and temperature guidance have Hungarian translations", () => {
   for (const taste of ["sour", "bitter", "dry", "mixed", "thin", "heavy", "balanced"]) {
     for (const flow of ["fast", "steady", "slow", "uneven"]) {
       const { change, ...copy } = nextAdjustment(taste, flow);
@@ -39,8 +39,11 @@ test("all espresso decisions and pre-infusion durations have Hungarian translati
       }
     }
   }
-  for (let seconds = 0; seconds <= 20; seconds++) {
-    const { max, ...copy } = preInfusionGuide(seconds);
-    for (const message of Object.values(copy)) assert.ok(Object.hasOwn(hungarian, message), message);
+  for (const roast of ["light", "medium", "dark"]) {
+    for (const taste of ["sour", "bitter"]) {
+      const { note, followUp } = espressoTemperatureGuide(roast, 92, taste, "steady");
+      assert.ok(Object.hasOwn(hungarian, note), note);
+      if (followUp) assert.ok(Object.hasOwn(hungarian, followUp), followUp);
+    }
   }
 });
