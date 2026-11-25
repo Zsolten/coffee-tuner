@@ -134,7 +134,7 @@ function render() {
   setText("ratio", "1:" + formatNumber(Number(recipe.ratio)));
   batchNote.hidden = true;
 
-  setText("temperature", recipe.temperature);
+  byId("temperature").firstChild.nodeValue = recipe.temperature.replace(/°C$/, "");
   setText("temperature-note", recipe.temperatureNote);
   setText("batch-help", settings.batch === "separate"
     ? "Repeat the schedule with fresh grounds for each cup."
