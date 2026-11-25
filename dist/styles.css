@@ -173,7 +173,7 @@ select {
 .metrics > div + div { border-left: 1px solid #775145; padding-left: clamp(9px, 2vw, 22px); }
 .metrics dt { color: #f2d6c4; font-size: .78rem; font-weight: 620; }
 .metrics dd { margin-top: 4px; font-family: var(--display); font-size: clamp(1.65rem, 3.25vw, 2.65rem); line-height: 1; white-space: nowrap; letter-spacing: -.035em; }
-.metrics dd#temperature { font-size: clamp(1.18rem, 2.8vw, 2.1rem); white-space: normal; }
+.metrics dd#temperature { white-space: normal; }
 .metrics dd span { font-family: inherit; font-size: .58em; color: #f2d6c4; letter-spacing: 0; }
 .temperature-note { margin-top: 16px; }
 
