@@ -45,14 +45,16 @@
 #temperature-start:has(+ #temperature-follow-up:not([hidden])) { margin-bottom: 4px; }
 .taste-options, .flow-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .taste-options label:last-child, .flow-options label:last-child { grid-column: span 2; }
-.shot-timing {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: center;
-  gap: 12px;
+.decision-inputs { container-type: inline-size; }
+.weight-inputs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.weight-inputs > div { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+.decision-inputs .weight-inputs .weight-stepper {
+  grid-template-columns: clamp(26px, 8cqw, 44px) minmax(0, 1fr) clamp(26px, 8cqw, 44px);
 }
-.shot-timing .field-help { margin: 0; }
-.weight-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@container (max-width: 310px) {
+  .decision-inputs .weight-inputs .weight-stepper { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .weight-inputs .weight-stepper input { grid-column: 1 / -1; grid-row: 1; }
+}
 .weight-inputs label { color: var(--muted); font-size: .78rem; font-weight: 650; }
 .weight-inputs input {
   width: 100%;

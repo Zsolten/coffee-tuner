@@ -58,8 +58,16 @@
 <div><label data-i18n="" for="shot-yield">Yield in cup (g)</label>
 <div class="weight-stepper"><button aria-label="Decrease espresso yield" data-i18n-attr="aria-label" data-step="-1" data-step-target="shot-yield" type="button">−</button><input aria-describedby="weight-help" id="shot-yield" inputmode="decimal" max="120" min="4" required="" step="0.1" type="number" value="36"/><button aria-label="Increase espresso yield" data-i18n-attr="aria-label" data-step="1" data-step-target="shot-yield" type="button">+</button></div>
 </div>
+<div><label for="shot-time" data-i18n="">Shot time (s)</label>
+<div class="weight-stepper">
+<button aria-label="Decrease shot time" data-i18n-attr="aria-label" data-step="-1" data-step-target="shot-time" type="button">−</button>
+<input id="shot-time" type="number" inputmode="numeric" min="1" max="180" step="1" placeholder="—" aria-describedby="shot-time-help"/>
+<button aria-label="Increase shot time" data-i18n-attr="aria-label" data-step="1" data-step-target="shot-time" type="button">+</button>
+</div>
+</div>
 </div>
 <p class="field-help" data-i18n="" id="weight-help">Enter dry grounds and the actual espresso weight.</p>
+<p class="field-help" id="shot-time-help" data-i18n="">Optional. Time from pump or lever start to target yield, including pre-infusion.</p>
 <div class="shot-conditions">
 <div>
 <label class="field-label" for="espresso-roast" data-i18n="">Roast level</label>
@@ -99,17 +107,6 @@
 </div>
 <p class="field-help" data-i18n="">Judge flow against your usual shots at the same dose and yield.</p>
 </fieldset>
-<div class="control">
-<label class="field-label" for="shot-time" data-i18n="">Shot time (s)</label>
-<div class="shot-timing">
-<div class="weight-stepper">
-<button aria-label="Decrease shot time" data-i18n-attr="aria-label" data-step="-1" data-step-target="shot-time" type="button">−</button>
-<input id="shot-time" type="number" inputmode="numeric" min="1" max="180" step="1" placeholder="—" aria-describedby="shot-time-help"/>
-<button aria-label="Increase shot time" data-i18n-attr="aria-label" data-step="1" data-step-target="shot-time" type="button">+</button>
-</div>
-<p class="field-help" id="shot-time-help" data-i18n="">Optional. Time from pump or lever start to target yield, including pre-infusion.</p>
-</div>
-</div>
 
 </section>
 <section aria-labelledby="next-title" class="recipe next-shot">
