@@ -158,6 +158,13 @@ summary { cursor:pointer; min-height:44px; align-content:center; font-weight:700
 }
 .method-actions button:hover, .method-actions button:focus-visible { background: #e4ece1; }
 
+.brew-recipe-caption {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: .85rem;
+  font-weight: 650;
+}
+.aeropress-identity-icon { flex: none; object-fit: contain; }
 .brew-recipe-toolbar { display: none; }
 
 .brew-settings-sheet {

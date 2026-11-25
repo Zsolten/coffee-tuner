@@ -1,4 +1,7 @@
 export const hungarian = Object.freeze({
+  "Pour, Press, Pop.": "Öntsd, nyomd, pattintsd.",
+  "Pick and edit your recipe": "Válaszd ki és alakítsd a recepted",
+  "Follow each brew with a step-by-step timer.": "Kövesd a főzés lépéseit az időzítővel.",
   "Steady": "Egyenletes",
   "Use shot time / unsure": "Csapolási idő alapján / bizonytalan",
   "Time (s)": "Idő (mp)",

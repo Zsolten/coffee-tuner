@@ -18,7 +18,6 @@ const recipes = {
     "dose": 13,
     "water": 180,
     "temp": "90",
-    "title": "13g that makes you happy",
     "author": "Sigit Tri",
     "slug": "13g-that-makes-you-happy",
     "setup": "Use a coarse grind and set up the brewer inverted with a paper filter.",
@@ -55,7 +54,6 @@ const recipes = {
     "dose": 24,
     "water": 240,
     "temp": "92",
-    "title": "For the sweetest cup",
     "author": "Damaring Kalpika",
     "slug": "for-the-sweetest-cup",
     "setup": "Use a medium grind and the inverted brewer. Wet two paper filters and warm the mug.",
@@ -89,7 +87,7 @@ const recipes = {
     ]
   }
 };
-recipes.hoffmann = { dose: 11, water: 200, title: "James Hoffmann’s AeroPress", author: "James Hoffmann", slug: "james-hoffmann-aeropress-recipe", setup: "Set the AeroPress upright on a sturdy mug with a paper filter and add the ground coffee. Start the timer after pouring.", stages };
+recipes.hoffmann = { dose: 11, water: 200, author: "James Hoffmann", slug: "james-hoffmann-aeropress-recipe", setup: "Set the AeroPress upright on a sturdy mug with a paper filter and add the ground coffee. Start the timer after pouring.", stages };
 
 const storageKey = "coffee-tuner-aeropress-v1";
 const byId = (id) => document.getElementById(id);
@@ -104,7 +102,6 @@ function render() {
   roastSelect.closest(".control").hidden = Boolean(recipe.temp);
   byId("water").firstChild.nodeValue = formatNumber(recipe.water * count) + " ";
   byId("plan-note").textContent = t(recipe.setup);
-  document.querySelector(".ritual-title").textContent = t(recipe.title);
   const source = byId("recipe-source");
   source.href = "https://aeroprecipe.com/recipes/" + recipe.slug;
   source.textContent = recipe.author + " · AeroPrecipe";
