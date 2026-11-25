@@ -46,6 +46,25 @@
 <button class="reset" data-i18n="" id="reset" type="button">Reset recipe</button>
 </header>
 
+<div class="brew-recipe-toolbar" hidden>
+<button type="button" id="settings-toggle" aria-haspopup="dialog" aria-controls="mobile-brew-settings" aria-label="Brew settings" data-i18n-attr="aria-label">
+<span class="brew-sliders" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+</div>
+<dialog class="brew-settings-sheet" id="mobile-brew-settings" aria-labelledby="settings-title">
+<header class="brew-sheet-header"><button type="button" class="reset" id="close-brew-settings" data-i18n="" autofocus>Done</button></header>
+</dialog>
+
+<dialog id="method-dialog"><form id="method-form">
+<h2 data-i18n="">Recipe editor</h2>
+<label><span data-i18n="">Recipe name</span><input id="method-name" required maxlength="60"/></label>
+<label><span data-i18n="">Water per gram of coffee</span><input id="method-ratio" type="number" min="5" max="30" step="0.01" required/></label>
+<label><span data-i18n="">Water temperature (°C)</span><input id="method-temp" type="number" min="50" max="100" required/></label>
+<p data-i18n="">For each pour, enter its start time in seconds and its share of the total water. Shares must add up to 100%.</p>
+<div id="method-pours"></div><button id="add-pour" type="button" data-i18n="">Add pour</button>
+<label><span data-i18n="">Target finish (seconds)</span><input id="method-finish" type="number" min="1" max="3600" required/></label>
+<p id="method-error" role="alert"></p><button type="button" id="cancel-method" data-i18n="">Cancel</button> <button type="submit" data-i18n="">Save recipe</button>
+</form></dialog>
 <div class="layout">
 <section id="brew-settings" aria-labelledby="settings-title" class="settings">
 <h2 data-i18n="" id="settings-title">Brew settings</h2>
@@ -106,17 +125,7 @@
 <button type="button" id="edit-method" aria-haspopup="dialog" title="Edit recipe" data-i18n-attr="title"><span data-i18n="">Edit</span></button>
 </div>
 </div>
-<select id="method"></select>
-<dialog id="method-dialog"><form id="method-form">
-<h2 data-i18n="">Recipe editor</h2>
-<label><span data-i18n="">Recipe name</span><input id="method-name" required maxlength="60"/></label>
-<label><span data-i18n="">Water per gram of coffee</span><input id="method-ratio" type="number" min="5" max="30" step="0.01" required/></label>
-<label><span data-i18n="">Water temperature (°C)</span><input id="method-temp" type="number" min="50" max="100" required/></label>
-<p data-i18n="">For each pour, enter its start time in seconds and its share of the total water. Shares must add up to 100%.</p>
-<div id="method-pours"></div><button id="add-pour" type="button" data-i18n="">Add pour</button>
-<label><span data-i18n="">Target finish (seconds)</span><input id="method-finish" type="number" min="1" max="3600" required/></label>
-<p id="method-error" role="alert"></p><button type="button" id="cancel-method" data-i18n="">Cancel</button> <button type="submit" data-i18n="">Save recipe</button>
-</form></dialog>
+<select id="method" aria-label="V60 recipe" data-i18n-attr="aria-label"></select>
 </div>
 <div class="control">
 <p class="field-label" data-i18n="" id="dose-options-label">Dose shortcuts per serving</p>
@@ -140,7 +149,6 @@
 <div><dt data-i18n="">Water temp.</dt><dd id="temperature">90–95 <span>°C</span></dd></div>
 </dl>
 <p class="temperature-note" data-i18n="" id="temperature-note">Start medium-fine and dial in by taste.</p>
-<button type="button" id="settings-toggle" aria-controls="brew-settings" aria-expanded="false"><span data-i18n="">Brew settings</span></button>
 </div>
 <div class="pour-plan">
 <div class="plan-heading">

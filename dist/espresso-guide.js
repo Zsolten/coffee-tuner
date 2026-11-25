@@ -42,7 +42,7 @@ const adjustments = {
   bitter: adjustYield("shorter", {
     title: "Stop the shot a little earlier",
     why: "A shorter yield can reduce extraction and the lingering bitterness in the cup. It may also make the shot more concentrated.",
-    watch: "If it stays harsh with a dark roast, keep the improved yield and try a small temperature decrease on a later shot if your machine allows it.",
+    watch: "Look for a shorter bitter finish. If the shot turns sharply sour, bring back a little yield.",
   }),
   dry: {
     ...preparePuck,
@@ -82,13 +82,29 @@ export function calculateYieldTarget(yieldInCup, change) {
   return yieldInCup;
 }
 
-export function preInfusionGuide(seconds) {
-  if (seconds <= 0) return {
-    label: "No intentional hold", heading: "0 seconds",
-    detail: "Start with the machine’s normal ramp. Some machines already wet the puck or slowly build pressure even with no added hold. Use this as your comparison shot.",
-  };
-  return {
-    label: "Trial duration", heading: "Compare with your usual setting",
-    detail: "Seconds alone do not predict flavor or puck saturation. Keep pressure, dose, grind, yield and temperature fixed when comparing durations. Include any liquid released during pre-infusion in your final yield. Use the roast examples below only if your machine supports their pressure range.",
-  };
+const temperatureRanges = {
+  dark: { low: 88, high: 92, note: "A starting range for dark roasts is 88–92 °C." },
+  medium: { low: 91, high: 94, note: "A starting range for medium roasts is 91–94 °C." },
+  light: { low: 93, high: 96, note: "A starting range for light roasts is 93–96 °C." },
+};
+
+export function espressoTemperatureGuide(roast, temperature, taste, flow) {
+  const { low, high, note } = temperatureRanges[roast] ?? temperatureRanges.medium;
+  if (!Number.isFinite(temperature) || flow !== "steady") return { note };
+
+  if (taste === "sour" && temperature + 1 <= high) {
+    return {
+      note,
+      target: temperature + 1,
+      followUp: "If the shot still tastes sharply sour after adjusting yield, try {temperature} °C on a later shot. Keep the other settings fixed.",
+    };
+  }
+  if (taste === "bitter" && temperature - 1 >= low) {
+    return {
+      note,
+      target: temperature - 1,
+      followUp: "If the shot still tastes bitter after adjusting yield, try {temperature} °C on a later shot. Keep the other settings fixed.",
+    };
+  }
+  return { note };
 }

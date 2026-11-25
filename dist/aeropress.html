@@ -45,11 +45,20 @@
 <button class="reset" data-i18n="" id="reset" type="button">Reset recipe</button>
 </header>
 
+<div class="brew-recipe-toolbar" hidden>
+<button type="button" id="settings-toggle" aria-haspopup="dialog" aria-controls="mobile-brew-settings" aria-label="Brew settings" data-i18n-attr="aria-label">
+<span class="brew-sliders" aria-hidden="true"><i></i><i></i><i></i></span>
+</button>
+</div>
+<dialog class="brew-settings-sheet" id="mobile-brew-settings" aria-labelledby="settings-title">
+<header class="brew-sheet-header"><button type="button" class="reset" id="close-brew-settings" data-i18n="" autofocus>Done</button></header>
+</dialog>
+
 <div class="layout">
 <section id="brew-settings" aria-labelledby="settings-title" class="settings">
 <h2 data-i18n="" id="settings-title">Brew settings</h2>
 <div class="control"><label class="field-label" for="aero-method" data-i18n="">AeroPress recipe</label>
-<select id="aero-method"><option value="hoffmann">James Hoffmann</option><option value="happy">13g that makes you happy</option><option value="sweet">For the sweetest cup</option></select></div>
+<select id="aero-method" aria-label="AeroPress recipe" data-i18n-attr="aria-label"><option value="hoffmann">James Hoffmann</option><option value="happy">13g that makes you happy</option><option value="sweet">For the sweetest cup</option></select></div>
 <fieldset aria-describedby="servings-help" class="control">
 <legend class="field-label" data-i18n="">Servings</legend>
 <div class="segments servings">
@@ -81,7 +90,6 @@
 <div><dt data-i18n="">Water temp.</dt><dd id="temperature">90–95 <span>°C</span></dd></div>
 </dl>
 <p class="temperature-note" data-i18n="" id="temperature-note">Start with a medium grind and adjust to taste.</p>
-<button type="button" id="settings-toggle" aria-controls="brew-settings" aria-expanded="false"><span data-i18n="">Brew settings</span></button>
 </div>
 <div class="pour-plan">
 <div class="plan-heading">

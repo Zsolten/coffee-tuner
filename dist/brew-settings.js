@@ -1,29 +1,45 @@
 export function setupBrewSettings() {
-  const settingsToggle = document.getElementById("settings-toggle");
-  const key = "coffee-tuner-panel-" + (document.body.classList.contains("aeropress-theme") ? "aeropress" : "v60");
-  try {
-    settingsToggle.setAttribute("aria-expanded", String(localStorage.getItem(key) === "true"));
-  } catch { /* Storage is optional. */ }
-  settingsToggle.addEventListener("click", () => {
-    const expanded = settingsToggle.getAttribute("aria-expanded") !== "true";
-    settingsToggle.setAttribute("aria-expanded", String(expanded));
-    try { localStorage.setItem(key, String(expanded)); } catch { /* Storage is optional. */ }
+  const mobile = window.matchMedia("(max-width: 756px)");
+  const toolbar = document.querySelector(".brew-recipe-toolbar");
+  const picker = document.querySelector("#method, #aero-method");
+  const pickerControl = picker.closest(".control");
+  const pickerPosition = document.createComment("Desktop recipe selector");
+  picker.before(pickerPosition);
+
+  const sheet = document.getElementById("mobile-brew-settings");
+  const openButton = document.getElementById("settings-toggle");
+  const closeButton = document.getElementById("close-brew-settings");
+  const settings = document.getElementById("brew-settings");
+  const title = document.getElementById("settings-title");
+  const recipe = document.querySelector(".recipe");
+  const reset = document.getElementById("reset");
+  const pageHeader = document.querySelector(".page-header");
+
+  openButton.addEventListener("click", () => sheet.showModal());
+  closeButton.addEventListener("click", () => sheet.close());
+  sheet.addEventListener("click", (event) => {
+    if (event.target === sheet) sheet.close();
   });
 
-  const mobileSettings = window.matchMedia("(max-width: 756px)");
-  const settingsPanel = document.getElementById("brew-settings");
-  const recipePanel = document.querySelector(".recipe");
-  const resetButton = document.getElementById("reset");
-
   function positionSettings() {
-    if (mobileSettings.matches) {
-      recipePanel.querySelector(".recipe-overview").after(settingsPanel);
-      settingsPanel.append(resetButton);
-    } else {
-      recipePanel.before(settingsPanel);
-      document.querySelector(".page-header").append(resetButton);
+    toolbar.hidden = !mobile.matches;
+    if (mobile.matches) {
+      toolbar.prepend(picker);
+      closeButton.before(title);
+      sheet.append(settings);
+      settings.append(reset);
+      if (picker.id === "aero-method") pickerControl.hidden = true;
+      return;
     }
+
+    if (sheet.open) sheet.close();
+    pickerPosition.after(picker);
+    pickerControl.hidden = false;
+    settings.prepend(title);
+    recipe.before(settings);
+    pageHeader.append(reset);
   }
-  mobileSettings.addEventListener("change", positionSettings);
+
+  mobile.addEventListener("change", positionSettings);
   positionSettings();
 }

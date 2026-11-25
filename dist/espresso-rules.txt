@@ -11,7 +11,13 @@ Read from the top. The first matching rule wins. Yield means the weight of espre
 7. Dry or mouth-puckering, with steady or fast flow: repeat with even puck prep first. Dryness and bitterness are different sensations. Dryness alone cannot diagnose channeling.
 8. Flavor balanced, body too thin or heavy, with steady or fast flow: try a shorter yield for more concentration or a longer yield for less.
 
-Coffee Tuner uses a 10% yield step for comparison. From 36 g, that means 39.6 g longer or 32.4 g shorter. The percentage and the rule order are app design choices. The pre-infusion slider is separate from these decisions. Its roast examples come from Flair.
+Coffee Tuner uses a 10% yield step for comparison. From 36 g, that means 39.6 g longer or 32.4 g shorter. The percentage and the rule order are app design choices. The roast-based pre-infusion examples are separate from these decisions and come from Flair.
+
+Temperature
+The app uses starting bands of 88–92 °C for dark roast, 91–94 °C for medium roast, and 93–96 °C for light roast. The bands overlap and are starter settings for a conventional espresso. Coffee and machines vary.
+With steady flow, change yield first. If a later shot still tastes sharply sour, try a 1 °C increase. If it still tastes bitter, try a 1 °C decrease. The app suggests a change only when the entered temperature and selected roast allow that direction within the relevant bound. Keep dose, grind, yield and pre-infusion fixed while comparing temperatures. Use the machine’s usual setting if you cannot adjust it.
+Hoffmann on espresso temperature: https://www.youtube.com/watch?v=QAzE-_ocf1U
+La Marzocco brew guide: https://lamarzocco.com/de/de/wp-content/uploads/2024/02/brewbook-print-1.pdf
 
 Video check
 In James Hoffmann's light-roast example, his sour, muddy first shot ran slowly. He went coarser, overshot, and made smaller moves finer. Once close, he kept the grind and raised the yield from roughly 38 g to 42 g at an 18 g dose. Later he used about 17 g, ground finer and kept 42 g out. His example shows why sourness alone cannot determine grind direction.

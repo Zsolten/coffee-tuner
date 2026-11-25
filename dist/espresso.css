@@ -25,7 +25,25 @@
   font-weight: 700;
   text-underline-offset: 4px;
 }
-.espresso-layout { grid-template-columns: minmax(290px, 1fr) minmax(0, 1.35fr); }
+.espresso-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.shot-conditions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: 12px;
+  margin-top: 16px;
+}
+.shot-conditions select, .shot-conditions input {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid #daccbc;
+  border-radius: 8px;
+  background: #f7f1e9;
+  color: inherit;
+}
+.shot-conditions input[aria-invalid="true"] { border-color: var(--accent); }
+#temperature-start:has(+ #temperature-follow-up:not([hidden])) { margin-bottom: 4px; }
 .taste-options, .flow-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .taste-options label:last-child { grid-column: span 2; }
 .weight-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -50,9 +68,9 @@
   line-height: 1.03;
 }
 .adjustment-detail { margin-top: 9px; color: #f3d9ca; font-size: .95rem; line-height: 1.5; }
-.adjustment-notes h3, .infusion-readout h3 { font-size: .93rem; font-weight: 750; }
-.adjustment-notes p, .infusion-readout p { margin: 5px 0 16px; color: var(--muted); font-size: .9rem; line-height: 1.55; }
-.adjustment-notes p:last-child, .infusion-readout p:last-child { margin-bottom: 0; }
+.adjustment-notes h3 { font-size: .93rem; font-weight: 750; }
+.adjustment-notes p { margin: 5px 0 16px; color: var(--muted); font-size: .9rem; line-height: 1.55; }
+.adjustment-notes p:last-child { margin-bottom: 0; }
 .baseline-steps { padding-left: 21px; }
 .guide-intro, .espresso-reference details p {
   color: var(--muted);
@@ -62,30 +80,13 @@
 .espresso-reference details p { margin-bottom: 13px; }
 .espresso-reference .guide-source { margin-top: 8px; }
 .infusion-guide { scroll-margin-top: 18px; }
-.infusion-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 17px;
-  margin-top: 17px;
-}
-.infusion-control, .infusion-readout {
-  padding: 14px 16px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #f7f1e9;
-}
-.slider-readout { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 12px; }
-.slider-readout output { font-family: var(--display); color: #643626; font-size: 2.2rem; line-height: 1.1; }
-.slider-readout span, .range-scale { color: var(--muted); font-size: .78rem; }
-.infusion-control input[type="range"] { display: block; width: 100%; margin: 5px 0 0; min-height: 31px; accent-color: var(--accent); }
-.range-scale { display: flex; justify-content: space-between; }
 .roast-guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 14px; margin: 15px 0; }
 .roast-guide div { border-top: 1px solid var(--line); padding-top: 8px; }
 .roast-guide dt { font-size: .82rem; font-weight: 750; }
 .roast-guide dd { margin-top: 4px; color: var(--muted); font-size: .83rem; line-height: 1.45; }
 .infusion-guide .guide-source { color: var(--muted); font-size: .83rem; }
 @media (max-width: 756px) {
-  .espresso-layout, .infusion-layout { grid-template-columns: minmax(0, 1fr); }
+  .espresso-layout { grid-template-columns: minmax(0, 1fr); }
   .adjustment-title { font-size: 2.05rem; }
 }
 @media (max-width: 414px) {

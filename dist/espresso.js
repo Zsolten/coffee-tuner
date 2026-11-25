@@ -1,10 +1,11 @@
-import { calculateYieldTarget, nextAdjustment, preInfusionGuide } from "./espresso-guide.js";
+import { calculateYieldTarget, espressoTemperatureGuide, nextAdjustment } from "./espresso-guide.js";
 import { formatNumber, initializeLanguage, t } from "./language.js";
 
 const byId = (id) => document.getElementById(id);
 const dose = byId("shot-dose");
 const yieldInCup = byId("shot-yield");
-const infusion = byId("infusion-seconds");
+const roast = byId("espresso-roast");
+const temperature = byId("shot-temperature");
 
 function setText(id, message, values) {
   byId(id).textContent = t(message, values);
@@ -15,7 +16,24 @@ function selected(name) {
 }
 
 function renderAdjustment() {
-  const recommendation = nextAdjustment(selected("taste"), selected("flow"));
+  const taste = selected("taste");
+  const flow = selected("flow");
+  const recommendation = nextAdjustment(taste, flow);
+  const temperatureValid = temperature.validity.valid;
+  temperature.setAttribute("aria-invalid", String(!temperatureValid));
+  byId("shot-temperature-help").classList.toggle("error", !temperatureValid);
+  setText("shot-temperature-help", temperatureValid
+    ? "Enter your machine’s setting if you know it."
+    : "Enter a temperature from 80 to 100 °C, with up to one decimal place.");
+  const temperatureGuide = espressoTemperatureGuide(
+    roast.value, temperatureValid ? temperature.valueAsNumber : NaN, taste, flow,
+  );
+  setText("temperature-start", temperatureGuide.note);
+  const followUp = byId("temperature-follow-up");
+  followUp.hidden = !temperatureGuide.followUp;
+  followUp.textContent = temperatureGuide.followUp
+    ? t(temperatureGuide.followUp, { temperature: formatNumber(temperatureGuide.target) })
+    : "";
   const doseValid = dose.validity.valid;
   const yieldValid = yieldInCup.validity.valid;
   const valid = doseValid && yieldValid;
@@ -56,22 +74,13 @@ function renderAdjustment() {
   });
 }
 
-function renderInfusion() {
-  const seconds = infusion.valueAsNumber;
-  const range = preInfusionGuide(seconds);
-  setText("infusion-value", "{seconds} s", { seconds });
-  setText("infusion-label", range.label);
-  setText("infusion-heading", range.heading);
-  setText("infusion-detail", range.detail);
-  infusion.setAttribute("aria-valuetext", t("{seconds} seconds, {description}", { seconds, description: t(range.label) }));
-}
-
 document.querySelectorAll('input[name="taste"], input[name="flow"]').forEach((input) => {
   input.addEventListener("change", renderAdjustment);
 });
 dose.addEventListener("input", renderAdjustment);
 yieldInCup.addEventListener("input", renderAdjustment);
-infusion.addEventListener("input", renderInfusion);
+roast.addEventListener("change", renderAdjustment);
+temperature.addEventListener("input", renderAdjustment);
 
 for (const name of ["taste", "flow"]) {
   byId("mobile-" + name).addEventListener("change", event => {
@@ -88,16 +97,15 @@ document.querySelectorAll("[data-step-target]").forEach(button => {
     renderAdjustment();
   });
 });
-const espressoRoast = byId("espresso-roast");
 const key = "coffee-tuner-espresso-v1";
-const fields = [dose, yieldInCup, infusion, espressoRoast];
+const fields = [dose, yieldInCup, roast, temperature];
 try {
   const saved = JSON.parse(localStorage.getItem(key)) || {};
   for (const field of fields) {
     if (saved[field.id] === undefined) continue;
     const initial = field.value;
     field.value = saved[field.id];
-    if (!field.value || !field.validity.valid) field.value = initial;
+    if (!field.validity.valid || (!field.value && field !== temperature)) field.value = initial;
   }
   for (const input of document.querySelectorAll('input[type="radio"]')) {
     if (input.value === saved[input.name]) input.checked = true;
@@ -107,25 +115,18 @@ try {
 function remember() {
   try {
     const state = JSON.parse(localStorage.getItem(key)) || {};
-    for (const field of fields) if (field.validity.valid && field.value) state[field.id] = field.value;
+    for (const field of fields) {
+      if (field.validity.valid && (field.value || field === temperature)) state[field.id] = field.value;
+    }
     state.taste = selected("taste");
     state.flow = selected("flow");
     localStorage.setItem(key, JSON.stringify(state));
   } catch { /* Storage is optional. */ }
 }
 
-function showRoast() {
-  const rows = document.querySelectorAll(".roast-guide > div");
-  rows.forEach((row, i) => { row.hidden = ["dark", "medium", "light"][i] !== espressoRoast.value; });
-}
-espressoRoast.addEventListener("change", showRoast);
 document.addEventListener("input", remember);
 document.addEventListener("change", remember);
 document.addEventListener("click", event => {
   if (event.target.closest("[data-step-target]")) remember();
 });
-showRoast();
-initializeLanguage(() => {
-  renderAdjustment();
-  renderInfusion();
-});
+initializeLanguage(renderAdjustment);
